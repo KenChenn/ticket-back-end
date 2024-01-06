@@ -61,6 +61,9 @@ public class UserServiceImpl implements UserService {
 		if (userDao.existsById(account)) {
 			return new UserLoginRes(RtnCode.ACCOUNT_EXISTED);
 		}
+		if (userDao.existsByUsername(username)) {
+			return new UserLoginRes(RtnCode.USERNAME_ALREADY_IN_USE);
+		}
 		userDao.save(new User(account, encoder.encode(pwd), realname, username, email, bornDate, phone, null, false));
 		return new UserLoginRes(RtnCode.SUCCESSFUL);
 	}
