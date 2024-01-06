@@ -12,4 +12,6 @@ public interface UserDao extends JpaRepository<User, String>{
 	
 	public boolean existsByAccountAndPwd(String account,String pwd);
 	
+	public User findByAccountAndAdminTrue(String account);
+	
 }

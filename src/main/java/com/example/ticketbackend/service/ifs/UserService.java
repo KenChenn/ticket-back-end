@@ -10,5 +10,6 @@ public interface UserService {
 	//使用者註冊
 	public UserLoginRes signUp(String account, String pwd, String realname, String username, String email,
 			LocalDate bornDate,String phone);
-
+	//管理者登入
+	public UserLoginRes adminLogin(String account, String pwd);
 }

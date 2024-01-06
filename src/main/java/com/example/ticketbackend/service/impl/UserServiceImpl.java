@@ -61,7 +61,21 @@ public class UserServiceImpl implements UserService {
 		if (userDao.existsById(account)) {
 			return new UserLoginRes(RtnCode.ACCOUNT_EXISTED);
 		}
-		userDao.save(new User(account,encoder.encode(pwd),realname,username,email,bornDate,phone, null, false));
+		userDao.save(new User(account, encoder.encode(pwd), realname, username, email, bornDate, phone, null, false));
+		return new UserLoginRes(RtnCode.SUCCESSFUL);
+	}
+
+	// 管理者登入
+	@Override
+	public UserLoginRes adminLogin(String account, String pwd) {
+		// 檢查帳號跟密碼是否為空
+		if (!StringUtils.hasText(account) || !StringUtils.hasText(pwd)) {
+			return new UserLoginRes(RtnCode.PARAM_ERROR);
+		}
+		User admin = userDao.findByAccountAndAdminTrue(account);
+		if (admin == null || !encoder.matches(pwd, admin.getPwd())) {
+			return new UserLoginRes(RtnCode.ACCOUNT_NOT_FOUND);
+		}
 		return new UserLoginRes(RtnCode.SUCCESSFUL);
 	}
 

@@ -17,13 +17,20 @@ public class UserServiveTests {
 
 	@Test
 	public void loginTest() {
-		UserLoginRes res = userService.login("A04", "123");
+		UserLoginRes res = userService.login("A04", "1223");
 		System.out.println("RtnCode:"  + res.getRtncode());
 	}
 	
 	@Test
 	public void signUpTest() {
-		UserLoginRes res = userService.signUp("A04", "123", "王小明", "XiaoMin", "test@gmail.com",LocalDate.now(), "0912345678");
+		UserLoginRes a = userService.signUp("A05", "123", "王小明", "XiaoMin", "test@gmail.com",null, "0912345678");
+		System.out.println("少了出生日參數:" + a.getRtncode());
+	}
+	
+	@Test
+	public void adminTest() {
+		UserLoginRes s = userService.adminLogin("admin", "admin");
+		System.out.println(s.getRtncode());
 	}
 
 }
