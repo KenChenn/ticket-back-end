@@ -1,13 +1,12 @@
 package com.example.ticketbackend;
 
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.ticketbackend.service.ifs.UserService;
 import com.example.ticketbackend.vo.RtnCodeRes;
+import com.example.ticketbackend.vo.UserBasicDateRes;
 
 @SpringBootTest
 public class UserServiveTests {
@@ -36,6 +35,19 @@ public class UserServiveTests {
 	@Test
 	public void userDataUpdateTest() {
 		RtnCodeRes test = userService.userDataUpdate("A05","©ú1","update123@test.com","0998765432");
+		System.out.println(test.getRtncode());
+	}
+	
+	@Test
+	public void userBasicDataTest() {
+		UserBasicDateRes test = userService.userBasicData("A05");
+		System.out.println(test.getRtncode());
+		System.out.println(test.getData());
+	}
+	
+	@Test
+	public void userPwdChangeTest() {
+		RtnCodeRes test = userService.userPwdChange("A05", "123", "123");
 		System.out.println(test.getRtncode());
 	}
 
