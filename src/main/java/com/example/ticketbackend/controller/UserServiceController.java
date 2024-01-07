@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ticketbackend.constants.RtnCode;
 import com.example.ticketbackend.service.ifs.UserService;
 import com.example.ticketbackend.vo.UserLoginReq;
-import com.example.ticketbackend.vo.UserLoginRes;
+import com.example.ticketbackend.vo.RtnCodeRes;
 import com.example.ticketbackend.vo.UserSignUpReq;
 
 @CrossOrigin
@@ -23,15 +23,16 @@ public class UserServiceController {
 	@Autowired
 	private UserService userService;
 	
+	//使用者登入
 	@PostMapping(value = "api/user_login")
-	public UserLoginRes login(@RequestBody UserLoginReq req, HttpSession session) {
+	public RtnCodeRes login(@RequestBody UserLoginReq req, HttpSession session) {
 		String attr = (String)session.getAttribute("account");
 		//判斷session是否已存在且與請求的帳號一致
 		if(StringUtils.hasText(attr) && attr.equals(req.getAccount())) {
 			System.out.println(session.getAttribute("account") + "帳號重複登入");
-			return new UserLoginRes(RtnCode.SUCCESSFUL);
+			return new RtnCodeRes(RtnCode.SUCCESSFUL);
 		}
-		UserLoginRes res = userService.login(req.getAccount(),req.getPwd());
+		RtnCodeRes res = userService.login(req.getAccount(),req.getPwd());
 		if(res.getRtncode().getCode() == 200) {
 			session.setAttribute("account", req.getAccount());
 			//將session有效時間設定為3600秒，即1小時
@@ -42,29 +43,40 @@ public class UserServiceController {
 		
 	}
 	
+	//登出
 	@GetMapping(value = "api/logout")
-	public UserLoginRes logout(HttpSession session) {
+	public RtnCodeRes logout(HttpSession session) {
 		System.out.println(session.getAttribute("account") + "登出了");
 		//讓session失效
 		session.invalidate();
-		return new UserLoginRes(RtnCode.SUCCESSFUL);
+		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 	
+	//使用者註冊
 	@PostMapping(value = "api/user_signup")
-	public UserLoginRes signUp(@RequestBody UserSignUpReq req) {
-		UserLoginRes res = userService.signUp(req.getAccount(), req.getPwd(), req.getRealname(), req.getUsername(), req.getEmail(), req.getBornDate(), req.getPhone());
+	public RtnCodeRes signUp(@RequestBody UserSignUpReq req) {
+		RtnCodeRes res = userService.signUp(req.getAccount(), req.getPwd(), req.getRealname(), req.getUsername(), req.getEmail(), req.getBornDate(), req.getPhone());
 		return res;
 	}
 	
+	//使用者個人資訊修改
+	@PostMapping(value = "api/user_data_update")
+	public RtnCodeRes userDataUpdate(@RequestBody UserSignUpReq req) {
+		RtnCodeRes res = userService.userDataUpdate(req.getAccount(),req.getUsername(),req.getEmail(),req.getPhone());
+		return res;
+	}
+	
+
+	//管理者登入
 	@PostMapping(value = "admin/login")
-	public UserLoginRes adminLogin(@RequestBody UserLoginReq req, HttpSession session) {
+	public RtnCodeRes adminLogin(@RequestBody UserLoginReq req, HttpSession session) {
 		String attr = (String)session.getAttribute("account");
 		//判斷session是否已存在且與請求的帳號一致
 		if(StringUtils.hasText(attr) && attr.equals(req.getAccount())) {
 			System.out.println(session.getAttribute("account") + "帳號重複登入");
-			return new UserLoginRes(RtnCode.SUCCESSFUL);
+			return new RtnCodeRes(RtnCode.SUCCESSFUL);
 		}
-		UserLoginRes res = userService.adminLogin(req.getAccount(), req.getPwd());
+		RtnCodeRes res = userService.adminLogin(req.getAccount(), req.getPwd());
 		if(res.getRtncode().getCode() == 200) {
 			session.setAttribute("account", req.getAccount());
 			//將session有效時間設定為3600秒，即1小時

@@ -15,7 +15,8 @@ import com.example.ticketbackend.constants.RtnCode;
 import com.example.ticketbackend.entity.User;
 import com.example.ticketbackend.repository.UserDao;
 import com.example.ticketbackend.service.ifs.UserService;
-import com.example.ticketbackend.vo.UserLoginRes;
+import com.example.ticketbackend.vo.RtnCodeRes;
+import com.example.ticketbackend.vo.UserBasicDateRes;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,59 +28,90 @@ public class UserServiceImpl implements UserService {
 
 	// 使用者登入
 	@Override
-	public UserLoginRes login(String account, String pwd) {
+	public RtnCodeRes login(String account, String pwd) {
 		// 檢查帳號跟密碼是否為空
 		if (!StringUtils.hasText(account) || !StringUtils.hasText(pwd)) {
-			return new UserLoginRes(RtnCode.PARAM_ERROR);
+			return new RtnCodeRes(RtnCode.PARAM_ERROR);
 		}
 		Optional<User> op = userDao.findById(account);
 		// 檢查帳號是否存在
 		if (op.isEmpty()) {
-			return new UserLoginRes(RtnCode.ACCOUNT_NOT_FOUND);
+			return new RtnCodeRes(RtnCode.ACCOUNT_NOT_FOUND);
 		}
 		;
 		User user = op.get();
 		// 檢查密碼是否正確
 		if (!encoder.matches(pwd, user.getPwd())) { // 如果密碼錯誤的話就回傳找不到帳號
-			return new UserLoginRes(RtnCode.ACCOUNT_NOT_FOUND);
+			return new RtnCodeRes(RtnCode.ACCOUNT_NOT_FOUND);
 		}
-		return new UserLoginRes(RtnCode.SUCCESSFUL);
+		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 
 	// 使用者註冊
 	@Override
-	public UserLoginRes signUp(String account, String pwd, String realname, String username, String email,
+	public RtnCodeRes signUp(String account, String pwd, String realname, String username, String email,
 			LocalDate bornDate, String phone) {
 		Optional<LocalDate> bornDateOP = Optional.ofNullable(bornDate);
 		// 檢查帳號跟密碼是否為空
 		if (!StringUtils.hasText(account) || !StringUtils.hasText(pwd) || !StringUtils.hasText(realname)
 				|| !StringUtils.hasText(username) || !StringUtils.hasText(email) || !bornDateOP.isPresent()
 				|| !StringUtils.hasText(phone)) {
-			return new UserLoginRes(RtnCode.PARAM_ERROR);
+			return new RtnCodeRes(RtnCode.PARAM_ERROR);
 		}
 		// 檢查帳號是否已存在
 		if (userDao.existsById(account)) {
-			return new UserLoginRes(RtnCode.ACCOUNT_EXISTED);
+			return new RtnCodeRes(RtnCode.ACCOUNT_EXISTED);
 		}
 		if (userDao.existsByUsername(username)) {
-			return new UserLoginRes(RtnCode.USERNAME_ALREADY_IN_USE);
+			return new RtnCodeRes(RtnCode.USERNAME_ALREADY_IN_USE);
 		}
 		userDao.save(new User(account, encoder.encode(pwd), realname, username, email, bornDate, phone, null, false));
-		return new UserLoginRes(RtnCode.SUCCESSFUL);
+		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 
 	// 管理者登入
 	@Override
-	public UserLoginRes adminLogin(String account, String pwd) {
+	public RtnCodeRes adminLogin(String account, String pwd) {
 		// 檢查帳號跟密碼是否為空
 		if (!StringUtils.hasText(account) || !StringUtils.hasText(pwd)) {
-			return new UserLoginRes(RtnCode.PARAM_ERROR);
+			return new RtnCodeRes(RtnCode.PARAM_ERROR);
 		}
 		User admin = userDao.findByAccountAndAdminTrue(account);
 		if (admin == null || !encoder.matches(pwd, admin.getPwd())) {
-			return new UserLoginRes(RtnCode.ACCOUNT_NOT_FOUND);
+			return new RtnCodeRes(RtnCode.ACCOUNT_NOT_FOUND);
 		}
-		return new UserLoginRes(RtnCode.SUCCESSFUL);
+		return new RtnCodeRes(RtnCode.SUCCESSFUL);
+	}
+
+	@Override
+	public RtnCodeRes userDataUpdate(String account, String username, String email, String phone) {
+		if(!StringUtils.hasText(username) || !StringUtils.hasText(email) || !StringUtils.hasText(phone)) {
+			return new RtnCodeRes(RtnCode.PARAM_ERROR);
+		}
+		User user = userDao.findByAccount(account);
+		if(user == null) {
+			return new RtnCodeRes(RtnCode.ACCOUNT_NOT_FOUND);
+		}
+		if(userDao.existsByUsername(username)) {
+			return new RtnCodeRes(RtnCode.USERNAME_ALREADY_IN_USE);
+		}
+		user.setUsername(username);
+		user.setEmail(email);
+		user.setPhone(phone);
+		try {
+			userDao.save(user);
+		} catch (Exception e) {
+			return new RtnCodeRes(RtnCode.USER_DATA_UPDATE_ERROR);
+		}
+		return new RtnCodeRes(RtnCode.SUCCESSFUL);
+	}
+
+	@Override
+	public UserBasicDateRes userBasicDate(String account) {
+		if(!StringUtils.hasText(account)) {
+			return new UserBasicDateRes(RtnCode.PARAM_ERROR,null,null,null,null);
+		}
+		return null;
 	}
 
 }
