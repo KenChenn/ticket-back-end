@@ -100,6 +100,7 @@ public class UserServiceController {
 		RtnCodeRes res = userService.adminLogin(req.getAccount(), req.getPwd());
 		if (res.getRtncode().getCode() == 200) {
 			session.setAttribute("account", req.getAccount());
+			session.setAttribute("isAdmin", "true");
 			// 將session有效時間設定為3600秒，即1小時
 			session.setMaxInactiveInterval(3600);
 			System.out.println(session.getAttribute("account") + "登入了");

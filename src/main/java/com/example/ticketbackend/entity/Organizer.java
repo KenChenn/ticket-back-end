@@ -2,6 +2,8 @@ package com.example.ticketbackend.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,7 +11,11 @@ import javax.persistence.Table;
 @Table(name="organizer")
 public class Organizer {
 	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@Column(name = "id")
+	private int id;
+	
 	@Column(name = "name")
 	private String name;
 	
@@ -29,6 +35,16 @@ public class Organizer {
 		super();
 	}
 
+	public Organizer(int id, String name, String email, String phone, String address, String url) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+		this.url = url;
+	}
+	
 	public Organizer(String name, String email, String phone, String address, String url) {
 		super();
 		this.name = name;
@@ -36,6 +52,14 @@ public class Organizer {
 		this.phone = phone;
 		this.address = address;
 		this.url = url;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -78,5 +102,6 @@ public class Organizer {
 		this.url = url;
 	}
 
+	
 	
 }

@@ -32,13 +32,11 @@ public class UserServiceImpl implements UserService {
 		if (!StringUtils.hasText(account) || !StringUtils.hasText(pwd)) {
 			return new RtnCodeRes(RtnCode.PARAM_ERROR);
 		}
-		Optional<User> op = userDao.findById(account);
+		User user = userDao.findByAccountAndAdminFalse(account);
 		// 檢查帳號是否存在
-		if (op.isEmpty()) {
+		if (user == null) {
 			return new RtnCodeRes(RtnCode.ACCOUNT_NOT_FOUND);
 		}
-		;
-		User user = op.get();
 		// 檢查密碼是否正確
 		if (!encoder.matches(pwd, user.getPwd())) { // 如果密碼錯誤的話就回傳找不到帳號
 			return new RtnCodeRes(RtnCode.ACCOUNT_NOT_FOUND);
@@ -64,7 +62,12 @@ public class UserServiceImpl implements UserService {
 		if (userDao.existsByUsername(username)) {
 			return new RtnCodeRes(RtnCode.USERNAME_ALREADY_IN_USE);
 		}
-		userDao.save(new User(account, encoder.encode(pwd), realname, username, email, bornDate, phone, null, false));
+		try {
+			userDao.save(new User(account, encoder.encode(pwd), realname, username, email, bornDate, phone, null, false));
+
+		} catch (Exception e) {
+			return new RtnCodeRes(RtnCode.ACCOUNT_SIGNUP_ERROR);
+		}
 		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 
