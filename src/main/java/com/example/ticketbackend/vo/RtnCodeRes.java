@@ -2,15 +2,15 @@ package com.example.ticketbackend.vo;
 
 import com.example.ticketbackend.constants.RtnCode;
 
-public class UserLoginRes {
+public class RtnCodeRes {
 	
 	private RtnCode rtncode;
 
-	public UserLoginRes() {
+	public RtnCodeRes() {
 		super();
 	}
 
-	public UserLoginRes(RtnCode rtncode) {
+	public RtnCodeRes(RtnCode rtncode) {
 		super();
 		this.rtncode = rtncode;
 	}
