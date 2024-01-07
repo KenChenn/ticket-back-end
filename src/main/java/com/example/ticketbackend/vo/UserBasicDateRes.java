@@ -1,61 +1,36 @@
 package com.example.ticketbackend.vo;
 
-import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 import com.example.ticketbackend.constants.RtnCode;
+import com.example.ticketbackend.entity.User;
 
 public class UserBasicDateRes extends RtnCodeRes{
-	
-	private String username;
-	
-	private String email;
-	
-	private LocalDate bornDate;
-	
-	private String phone;
-	
+		
+//	private String username;
+//	
+//	private String email;
+//	
+//	private LocalDate bornDate;
+//	
+	private Map<String,Object> data;
+
 	public UserBasicDateRes() {
 		super();
 	}
 
-	public UserBasicDateRes(RtnCode rtncode,String username, String email, LocalDate bornDate, String phone) {
+	public UserBasicDateRes(RtnCode rtncode,Map<String, Object> data) {
 		super(rtncode);
-		this.username = username;
-		this.email = email;
-		this.bornDate = bornDate;
-		this.phone = phone;
+		this.data = data;
 	}
 
-	public String getUsername() {
-		return username;
+	public Map<String, Object> getData() {
+		return data;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public LocalDate getBornDate() {
-		return bornDate;
-	}
-
-	public void setBornDate(LocalDate bornDate) {
-		this.bornDate = bornDate;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setData(Map<String, Object> data) {
+		this.data = data;
 	}
 
 

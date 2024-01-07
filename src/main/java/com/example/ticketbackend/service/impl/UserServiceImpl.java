@@ -1,9 +1,8 @@
 package com.example.ticketbackend.service.impl;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,16 +82,17 @@ public class UserServiceImpl implements UserService {
 		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 
+	//修改個人資訊
 	@Override
 	public RtnCodeRes userDataUpdate(String account, String username, String email, String phone) {
-		if(!StringUtils.hasText(username) || !StringUtils.hasText(email) || !StringUtils.hasText(phone)) {
+		if (!StringUtils.hasText(username) || !StringUtils.hasText(email) || !StringUtils.hasText(phone)) {
 			return new RtnCodeRes(RtnCode.PARAM_ERROR);
 		}
-		User user = userDao.findByAccount(account);
-		if(user == null) {
+		User user = userDao.findByAccountAndAdminFalse(account);
+		if (user == null) {
 			return new RtnCodeRes(RtnCode.ACCOUNT_NOT_FOUND);
 		}
-		if(userDao.existsByUsername(username)) {
+		if (userDao.existsByUsername(username)) {
 			return new RtnCodeRes(RtnCode.USERNAME_ALREADY_IN_USE);
 		}
 		user.setUsername(username);
@@ -107,11 +107,46 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserBasicDateRes userBasicDate(String account) {
-		if(!StringUtils.hasText(account)) {
-			return new UserBasicDateRes(RtnCode.PARAM_ERROR,null,null,null,null);
+	public UserBasicDateRes userBasicData(String account) {
+		if (!StringUtils.hasText(account)) {
+			return new UserBasicDateRes(RtnCode.PARAM_ERROR, null);
 		}
-		return null;
+		User user = userDao.findByAccountAndAdminFalse(account);
+		if (user == null) {
+			return new UserBasicDateRes(RtnCode.ACCOUNT_NOT_FOUND, null);
+		}
+
+		Map<String, Object> data = new HashMap<>();
+		data.put("username", user.getUsername());
+		data.put("email", user.getEmail());
+		data.put("bornDate", user.getBornDate());
+		data.put("phone", user.getPhone());
+		return new UserBasicDateRes(RtnCode.SUCCESSFUL, data);
+
+	}
+
+	@Override
+	public RtnCodeRes userPwdChange(String account, String oldPwd, String newPwd) {
+		if (!StringUtils.hasText(account) || !StringUtils.hasText(oldPwd) || !StringUtils.hasText(newPwd)) {
+			return new RtnCodeRes(RtnCode.PARAM_ERROR);
+		}
+		User user = userDao.findByAccountAndAdminFalse(account);
+		if (user == null) {
+			return new RtnCodeRes(RtnCode.ACCOUNT_NOT_FOUND);
+		}
+		if (!encoder.matches(oldPwd, user.getPwd())) { 
+			return new RtnCodeRes(RtnCode.PWD_NOT_CORRECT);
+		}
+		if (encoder.matches(newPwd, user.getPwd())) { 
+			return new RtnCodeRes(RtnCode.PLEASE_ENTER_NEW_PWD);
+		}
+		user.setPwd(encoder.encode(newPwd));
+		try {
+			userDao.save(user);
+		} catch (Exception e) {
+			return new RtnCodeRes(RtnCode.USER_DATA_UPDATE_ERROR);
+		}
+		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 
 }

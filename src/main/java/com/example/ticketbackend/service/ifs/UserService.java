@@ -18,6 +18,9 @@ public interface UserService {
 	public RtnCodeRes userDataUpdate(String account,String username,String email,String phone);
 	
 	//獲取使用者基本資料
-	public UserBasicDateRes userBasicDate(String account);
+	public UserBasicDateRes userBasicData(String account);
+	
+	//更改使用者密碼
+	public RtnCodeRes userPwdChange(String account,String oldPwd,String newPwd);
  
 }

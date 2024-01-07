@@ -8,7 +8,7 @@ import com.example.ticketbackend.entity.User;
 @Repository
 public interface UserDao extends JpaRepository<User, String>{
 
-	public User findByAccount(String account);
+	public User findByAccountAndAdminFalse(String account);
 	
 	public boolean existsByAccountAndPwd(String account,String pwd);
 	
