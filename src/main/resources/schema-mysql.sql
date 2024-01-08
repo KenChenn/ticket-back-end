@@ -7,10 +7,15 @@ CREATE TABLE `commodity` (
   `is_entity` tinyint NOT NULL DEFAULT '0',
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
-  `image` blob,
+  `place` varchar(60) NOT NULL,
+  `keyvisual_img` blob,
+  `introduce_img1` blob,
+  `introduce_img2` blob,
   `organizer` varchar(30) NOT NULL,
   PRIMARY KEY (`codename`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 
 CREATE TABLE `forum` (
   `commodity_codename` varchar(20) NOT NULL,
@@ -36,11 +41,11 @@ CREATE TABLE `organizer` (
   `name` varchar(30) NOT NULL,
   `email` varchar(40) NOT NULL,
   `phone` varchar(15) NOT NULL,
-  `address` varchar(40) NOT NULL,
-  `url` varchar(100) NOT NULL,
+  `address` varchar(40) DEFAULT NULL,
+  `url` varchar(100) DEFAULT NULL,
+  `sns` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `seat` (
   `num` int NOT NULL,
@@ -55,11 +60,11 @@ CREATE TABLE `sessions` (
   `num` int NOT NULL,
   `commodity_codename` varchar(20) NOT NULL,
   `show_date` date NOT NULL,
-  `place` varchar(60) NOT NULL,
   `start_selldate` date NOT NULL,
   `end_selldate` date NOT NULL,
   PRIMARY KEY (`num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE `tracking` (
   `id` int NOT NULL AUTO_INCREMENT,

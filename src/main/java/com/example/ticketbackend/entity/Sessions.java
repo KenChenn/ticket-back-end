@@ -21,8 +21,6 @@ public class Sessions {
 	@Column(name = "show_date")
 	private LocalDate showDate;
 	
-	@Column(name = "place")
-	private String place;
 	
 	@Column(name = "start_selldate")
 	private LocalDate startSelldate;
@@ -34,16 +32,17 @@ public class Sessions {
 		super();
 	}
 
-	public Sessions(int num, String commodityCodename, LocalDate showDate, String place, LocalDate startSelldate,
+	public Sessions(int num, String commodityCodename, LocalDate showDate, LocalDate startSelldate,
 			LocalDate endSelldate) {
 		super();
 		this.num = num;
 		this.commodityCodename = commodityCodename;
 		this.showDate = showDate;
-		this.place = place;
 		this.startSelldate = startSelldate;
 		this.endSelldate = endSelldate;
 	}
+	
+	
 
 	public int getNum() {
 		return num;
@@ -69,14 +68,6 @@ public class Sessions {
 		this.showDate = showDate;
 	}
 
-	public String getPlace() {
-		return place;
-	}
-
-	public void setPlace(String place) {
-		this.place = place;
-	}
-
 	public LocalDate getStartSelldate() {
 		return startSelldate;
 	}
@@ -92,6 +83,7 @@ public class Sessions {
 	public void setEndSelldate(LocalDate endSelldate) {
 		this.endSelldate = endSelldate;
 	}
+
 	
 	
 	

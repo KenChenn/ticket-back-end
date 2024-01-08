@@ -12,7 +12,9 @@ public enum RtnCode {
 	PLEASE_ENTER_NEW_PWD(400,"Please Enter New Password"), //新密碼與舊密碼一樣
 	ORGANIZER_EXISTED(400,"Organizer Existed"), //主辦單位已存在
 	ORGANIZER_ADD_ERROR(400,"Organizer Add Error"),//主辦單位新增失敗
-	PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST(400,"Please Login Admin Account First") //新先登入管理者權限帳號
+	PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST(400,"Please Login Admin Account First"), //新先登入管理者權限帳號
+	DATA_NOT_FOUND(400,"Data Not Found"), //找不到資料
+	ORGANIZER_UPDATE_ERROR(400,"Organizer Update Error"), //主辦單位修改失敗
 	;
 
 
