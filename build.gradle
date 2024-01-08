@@ -26,6 +26,16 @@ dependencies {
 	 //mySql connector  mySql³s±µ from https://mvnrepository.com/artifact/mysql/mysql-connector-java
     implementation 'mysql:mysql-connector-java:8.0.31'
 	
+	//swagger
+    //implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    //open api
+    implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+    
+    //cache
+ 	implementation 'org.springframework.boot:spring-boot-starter-cache'
+ 	//caffeine cache
+ 	implementation 'com.github.ben-manes.caffeine:caffeine'
+	
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 		
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
