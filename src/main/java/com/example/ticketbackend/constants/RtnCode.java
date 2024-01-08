@@ -15,6 +15,7 @@ public enum RtnCode {
 	PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST(400,"Please Login Admin Account First"), //新先登入管理者權限帳號
 	DATA_NOT_FOUND(400,"Data Not Found"), //找不到資料
 	ORGANIZER_UPDATE_ERROR(400,"Organizer Update Error"), //主辦單位修改失敗
+	ORGANIZER_DELETE_ERROR(400,"Organizer Delete Error"), //主辦單位刪除失敗
 	;
 
 
