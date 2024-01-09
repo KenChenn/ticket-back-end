@@ -16,7 +16,15 @@ public class OrganizerServiceTests {
 	
 	@Test
 	public void addOrganizer() {
-		RtnCodeRes res = organizerService.addOrganizer("API12", "test", "0800123123", "高雄三民區", "google.com");
+		RtnCodeRes res = organizerService.addOrganizer("API11211", "test", "0800123123", null,null,null);
 		System.out.println(res.getRtncode());
+	}
+	
+	
+	@Test
+	public void updateOrganizer() {
+		RtnCodeRes res = organizerService.updateOrganizer(13, "測試更新", "update@test.com", "0800-111-222", null, null, null);
+		System.out.println(res.getRtncode());
+
 	}
 }

@@ -30,12 +30,15 @@ public class Organizer {
 	
 	@Column(name = "url")
 	private String url;
+	
+	@Column(name = "sns")
+	private String sns;
 
 	public Organizer() {
 		super();
 	}
 
-	public Organizer(int id, String name, String email, String phone, String address, String url) {
+	public Organizer(int id, String name, String email, String phone, String address, String url, String sns) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -43,15 +46,17 @@ public class Organizer {
 		this.phone = phone;
 		this.address = address;
 		this.url = url;
+		this.sns = sns;
 	}
 	
-	public Organizer(String name, String email, String phone, String address, String url) {
+	public Organizer(String name, String email, String phone, String address, String url, String sns) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
 		this.address = address;
 		this.url = url;
+		this.sns = sns;
 	}
 
 	public int getId() {
@@ -102,6 +107,13 @@ public class Organizer {
 		this.url = url;
 	}
 
-	
+	public String getSns() {
+		return sns;
+	}
+
+	public void setSns(String sns) {
+		this.sns = sns;
+	}
+
 	
 }

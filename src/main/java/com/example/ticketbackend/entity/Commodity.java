@@ -31,8 +31,17 @@ public class Commodity {
 	@Column(name = "end_date")
 	private LocalDate endDate;
 	
-	@Column(name = "image")
-	private Blob image;
+	@Column(name = "place")
+	private String place;
+	
+	@Column(name = "keyvisual_img")
+	private Blob keyvisualImg;
+	
+	@Column(name = "introduce_img1")
+	private Blob introduceImg1;
+	
+	@Column(name = "introduce_img2")
+	private Blob introduceImg2;
 	
 	@Column(name = "organizer")
 	private String organizer;
@@ -42,7 +51,8 @@ public class Commodity {
 	}
 
 	public Commodity(String codename, String name, String introduction, boolean entity, LocalDate startDate,
-			LocalDate endDate, Blob image, String organizer) {
+			LocalDate endDate, String place, Blob keyvisualImg, Blob introduceImg1, Blob introduceImg2,
+			String organizer) {
 		super();
 		this.codename = codename;
 		this.name = name;
@@ -50,7 +60,10 @@ public class Commodity {
 		this.entity = entity;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.image = image;
+		this.place = place;
+		this.keyvisualImg = keyvisualImg;
+		this.introduceImg1 = introduceImg1;
+		this.introduceImg2 = introduceImg2;
 		this.organizer = organizer;
 	}
 
@@ -102,12 +115,36 @@ public class Commodity {
 		this.endDate = endDate;
 	}
 
-	public Blob getImage() {
-		return image;
+	public String getPlace() {
+		return place;
 	}
 
-	public void setImage(Blob image) {
-		this.image = image;
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public Blob getKeyvisualImg() {
+		return keyvisualImg;
+	}
+
+	public void setKeyvisualImg(Blob keyvisualImg) {
+		this.keyvisualImg = keyvisualImg;
+	}
+
+	public Blob getIntroduceImg1() {
+		return introduceImg1;
+	}
+
+	public void setIntroduceImg1(Blob introduceImg1) {
+		this.introduceImg1 = introduceImg1;
+	}
+
+	public Blob getIntroduceImg2() {
+		return introduceImg2;
+	}
+
+	public void setIntroduceImg2(Blob introduceImg2) {
+		this.introduceImg2 = introduceImg2;
 	}
 
 	public String getOrganizer() {
@@ -117,6 +154,11 @@ public class Commodity {
 	public void setOrganizer(String organizer) {
 		this.organizer = organizer;
 	}
+	
+	
+
+	
+	
 	
 	
 	
