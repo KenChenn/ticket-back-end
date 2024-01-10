@@ -51,7 +51,7 @@ public class OrganizerController {
 	
 	// 刪除主辦單位
 		@PostMapping(value = "api/delete_organizer")
-		public RtnCodeRes delete(@RequestBody UpdateOrganizerReq req,HttpSession session) {
+		public RtnCodeRes deleteOrganizer(@RequestBody UpdateOrganizerReq req,HttpSession session) {
 			String attr = (String) session.getAttribute("isAdmin");
 			if (!StringUtils.hasText(attr) || attr != "true") {
 				return new RtnCodeRes(RtnCode.PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST);

@@ -1,63 +1,48 @@
-package com.example.ticketbackend.entity;
+package com.example.ticketbackend.vo;
 
 import java.sql.Blob;
 import java.time.LocalDate;
+import java.util.Map;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "commodity")
-public class Commodity {
+public class CommodityReq {
 
-	@Id
-	@Column(name = "codename")
+	
 	private String codename;
 	
-	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "introduction")
 	private String introduction;
-
-	@Column(name = "is_entity")
-	private boolean entity;
 	
-	@Column(name = "start_date")
+	private boolean enity;
+	
 	private LocalDate startDate;
 	
-	@Column(name = "end_date")
 	private LocalDate endDate;
-	
-	@Column(name = "place")
+
 	private String place;
-	
-	@Column(name = "keyvisual_img")
+
 	private String keyvisualImg;
 	
-	@Column(name = "introduce_img1")
 	private String introduceImg1;
 	
-	@Column(name = "introduce_img2")
 	private String introduceImg2;
-	
-	@Column(name = "organizer")
+
 	private String organizer;
 
-	public Commodity() {
+	public CommodityReq() {
 		super();
 	}
 
-	public Commodity(String codename, String name, String introduction, boolean entity, LocalDate startDate,
+	public CommodityReq(String codename, String name, String introduction, boolean enity, LocalDate startDate,
 			LocalDate endDate, String place, String keyvisualImg, String introduceImg1, String introduceImg2,
 			String organizer) {
 		super();
 		this.codename = codename;
 		this.name = name;
 		this.introduction = introduction;
-		this.entity = entity;
+		this.enity = enity;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.place = place;
@@ -91,12 +76,12 @@ public class Commodity {
 		this.introduction = introduction;
 	}
 
-	public boolean isEntity() {
-		return entity;
+	public boolean isEnity() {
+		return enity;
 	}
 
-	public void setEntity(boolean entity) {
-		this.entity = entity;
+	public void setEnity(boolean enity) {
+		this.enity = enity;
 	}
 
 	public LocalDate getStartDate() {
@@ -156,7 +141,8 @@ public class Commodity {
 	}
 
 	
-
 	
 
+	
+	
 }

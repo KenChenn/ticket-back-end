@@ -1,4 +1,3 @@
-CREATE DATABASE IF NOT EXISTS `ticket`;
 
 CREATE TABLE `commodity` (
   `codename` varchar(20) NOT NULL,
@@ -45,7 +44,7 @@ CREATE TABLE `organizer` (
   `url` varchar(100) DEFAULT NULL,
   `sns` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `seat` (
   `num` int NOT NULL,

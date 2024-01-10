@@ -1,58 +1,38 @@
-package com.example.ticketbackend.entity;
+package com.example.ticketbackend.vo;
 
-import java.sql.Blob;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class CommodityRes {
 
-@Entity
-@Table(name = "commodity")
-public class Commodity {
-
-	@Id
-	@Column(name = "codename")
-	private String codename;
+private String codename;
 	
-	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "introduction")
 	private String introduction;
-
-	@Column(name = "is_entity")
+	
 	private boolean entity;
 	
-	@Column(name = "start_date")
 	private LocalDate startDate;
 	
-	@Column(name = "end_date")
 	private LocalDate endDate;
 	
-	@Column(name = "place")
 	private String place;
 	
-	@Column(name = "keyvisual_img")
-	private String keyvisualImg;
+	private String visionPicture_Base64;
 	
-	@Column(name = "introduce_img1")
-	private String introduceImg1;
+	private String introducePicture1_Base64;
 	
-	@Column(name = "introduce_img2")
-	private String introduceImg2;
+	private String introducePicture2_Base64;
 	
-	@Column(name = "organizer")
 	private String organizer;
 
-	public Commodity() {
+	public CommodityRes() {
 		super();
 	}
 
-	public Commodity(String codename, String name, String introduction, boolean entity, LocalDate startDate,
-			LocalDate endDate, String place, String keyvisualImg, String introduceImg1, String introduceImg2,
-			String organizer) {
+	public CommodityRes(String codename, String name, String introduction, boolean entity, LocalDate startDate,
+			LocalDate endDate, String place, String visionPicture_Base64, String introducePicture1_Base64,
+			String introducePicture2_Base64, String organizer) {
 		super();
 		this.codename = codename;
 		this.name = name;
@@ -61,9 +41,9 @@ public class Commodity {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.place = place;
-		this.keyvisualImg = keyvisualImg;
-		this.introduceImg1 = introduceImg1;
-		this.introduceImg2 = introduceImg2;
+		this.visionPicture_Base64 = visionPicture_Base64;
+		this.introducePicture1_Base64 = introducePicture1_Base64;
+		this.introducePicture2_Base64 = introducePicture2_Base64;
 		this.organizer = organizer;
 	}
 
@@ -123,28 +103,28 @@ public class Commodity {
 		this.place = place;
 	}
 
-	public String getKeyvisualImg() {
-		return keyvisualImg;
+	public String getVisionPicture_Base64() {
+		return visionPicture_Base64;
 	}
 
-	public void setKeyvisualImg(String keyvisualImg) {
-		this.keyvisualImg = keyvisualImg;
+	public void setVisionPicture_Base64(String visionPicture_Base64) {
+		this.visionPicture_Base64 = visionPicture_Base64;
 	}
 
-	public String getIntroduceImg1() {
-		return introduceImg1;
+	public String getIntroducePicture1_Base64() {
+		return introducePicture1_Base64;
 	}
 
-	public void setIntroduceImg1(String introduceImg1) {
-		this.introduceImg1 = introduceImg1;
+	public void setIntroducePicture1_Base64(String introducePicture1_Base64) {
+		this.introducePicture1_Base64 = introducePicture1_Base64;
 	}
 
-	public String getIntroduceImg2() {
-		return introduceImg2;
+	public String getIntroducePicture2_Base64() {
+		return introducePicture2_Base64;
 	}
 
-	public void setIntroduceImg2(String introduceImg2) {
-		this.introduceImg2 = introduceImg2;
+	public void setIntroducePicture2_Base64(String introducePicture2_Base64) {
+		this.introducePicture2_Base64 = introducePicture2_Base64;
 	}
 
 	public String getOrganizer() {
@@ -154,9 +134,6 @@ public class Commodity {
 	public void setOrganizer(String organizer) {
 		this.organizer = organizer;
 	}
-
 	
-
 	
-
 }

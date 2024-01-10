@@ -70,12 +70,8 @@ public class OrganizerServiceImpl implements OrganizerService {
 		if (id <= 0) {
 			return new RtnCodeRes(RtnCode.PARAM_ERROR);
 		}
-		Optional<Organizer> op = organizerDao.findById(id);
-		if (op.isEmpty()) {
-			return new RtnCodeRes(RtnCode.DATA_NOT_FOUND);
-		}
 		try {
-			organizerDao.delete(op.get());
+			organizerDao.deleteById(id);
 		} catch (Exception e) {
 			return new RtnCodeRes(RtnCode.ORGANIZER_DELETE_ERROR);
 		}

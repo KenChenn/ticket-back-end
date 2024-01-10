@@ -16,6 +16,10 @@ public enum RtnCode {
 	DATA_NOT_FOUND(400,"Data Not Found"), //找不到資料
 	ORGANIZER_UPDATE_ERROR(400,"Organizer Update Error"), //主辦單位修改失敗
 	ORGANIZER_DELETE_ERROR(400,"Organizer Delete Error"), //主辦單位刪除失敗
+	DATE_FORMAT_ERROR(400,"Data Format Error"), //日期格式錯誤
+	COMMODITY_ADD_ERROR(400,"Commodity Add Error"), //新增節目失敗
+	CODENAME_EXISTED(400,"Codename Existed"), //節目代號已存在
+	COMMODITY_UPDATE_ERROR(400,"Commodity Update Error"), //節目修改失敗
 	;
 
 

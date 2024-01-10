@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
 		if (user == null) {
 			return new RtnCodeRes(RtnCode.ACCOUNT_NOT_FOUND);
 		}
-		if (userDao.existsByUsername(username)) {
+		if (!username.equals(user.getUsername()) && userDao.existsByUsername(username)) {
 			return new RtnCodeRes(RtnCode.USERNAME_ALREADY_IN_USE);
 		}
 		user.setUsername(username);
