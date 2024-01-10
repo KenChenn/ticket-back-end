@@ -122,9 +122,10 @@ public class CommodityServiceImpl implements CommodityService {
 
 	@Override
 	public GetCommodityDataRes searchCommodity(String name) {
-		return new GetCommodityDataRes(RtnCode.SUCCESSFUL,commodityDao.searchCommodity(name));
+//		return new GetCommodityDataRes(RtnCode.SUCCESSFUL,commodityDao.searchCommodity(name));
+		return null;
 	}
-	
+
 	
 	
 
