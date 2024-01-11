@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.persistence.Column;
 
-public class CommodityReq {
+public class CommodityReq1 {
 
 	
 	private String codename;
@@ -31,11 +31,11 @@ public class CommodityReq {
 
 	private String organizer;
 
-	public CommodityReq() {
+	public CommodityReq1() {
 		super();
 	}
 
-	public CommodityReq(String codename, String name, String introduction, boolean enity, LocalDate startDate,
+	public CommodityReq1(String codename, String name, String introduction, boolean enity, LocalDate startDate,
 			LocalDate endDate, String place, String keyvisualImg, String introduceImg1, String introduceImg2,
 			String organizer) {
 		super();

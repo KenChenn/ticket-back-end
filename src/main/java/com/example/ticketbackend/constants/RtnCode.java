@@ -20,6 +20,11 @@ public enum RtnCode {
 	COMMODITY_ADD_ERROR(400,"Commodity Add Error"), //新增節目失敗
 	CODENAME_EXISTED(400,"Codename Existed"), //節目代號已存在
 	COMMODITY_UPDATE_ERROR(400,"Commodity Update Error"), //節目修改失敗
+	DATA_CHECK_ERROR(400,"Data Check Error"),// 資料檢查失敗
+	DATA_CHECK_SUCCESSFUL(200,"Data Check Successful"), //資料檢查成功
+	SESSION_ADD_ERROR(400,"Session Add Error"),//新增場次失敗
+	SEAT_ADD_ERROR(400,"Seat Add Error"),//新增座位失敗
+	SESSION_CODENAME_NOT_MATCH_COMMODITY_CODENAME(400,"Session Codename Not Match Commodity Codename"),//場次資料裡的節目代號與節目代號不一致
 	;
 
 
