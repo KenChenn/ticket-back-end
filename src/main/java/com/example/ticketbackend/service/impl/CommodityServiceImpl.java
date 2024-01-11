@@ -52,6 +52,9 @@ public class CommodityServiceImpl implements CommodityService {
 
 	@Override
 	public GetCommodityDataRes getCommodityDate(String codename) {
+		if (!StringUtils.hasText(codename)) {
+			return new GetCommodityDataRes(RtnCode.PARAM_ERROR,null);
+		}
 		List<Commodity> commodityList = commodityDao.findByCodename(codename);
 		if (commodityList.size()<=0) {
 			return new GetCommodityDataRes(RtnCode.DATA_NOT_FOUND,null);
@@ -122,8 +125,7 @@ public class CommodityServiceImpl implements CommodityService {
 
 	@Override
 	public GetCommodityDataRes searchCommodity(String name) {
-//		return new GetCommodityDataRes(RtnCode.SUCCESSFUL,commodityDao.searchCommodity(name));
-		return null;
+		return new GetCommodityDataRes(RtnCode.SUCCESSFUL,commodityDao.searchCommodity(name));
 	}
 
 	

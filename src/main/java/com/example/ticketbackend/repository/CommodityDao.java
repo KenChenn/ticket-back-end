@@ -12,16 +12,12 @@ import org.springframework.stereotype.Repository;
 
 import com.example.ticketbackend.entity.Commodity;
 
-
 @Repository
-public interface CommodityDao extends JpaRepository<Commodity, String>{
+public interface CommodityDao extends JpaRepository<Commodity, String> {
 
 	public List<Commodity> findByCodename(String codename);
-	
-	
-//	@Transactional
-//	@Modifying
-//	@Query(value = "SELECT c FROM Commodity WHERE c.codename LIKE %:name%",nativeQuery = false)
-//	public List<Commodity> searchCommodity(@Param("name") String name);
-	
+
+	@Query(value = "select * from Commodity where (name like %:name%) and (((now() >= start_date) AND (now() <= end_date)) OR (now() <= start_date))", nativeQuery = true)
+	public List<Commodity> searchCommodity(@Param("name") String name);
+
 }

@@ -71,8 +71,7 @@ public class CommodityController {
 
 	@PostMapping(value = "api/search_commodity")
 	public GetCommodityDataRes searchCommodity(@RequestBody CommodityReq req) {
-		
-		return commodityService.searchCommodity(req.getCodename());
+		return commodityService.searchCommodity(req.getName());
 	}
 	
 	
