@@ -1,4 +1,3 @@
-CREATE DATABASE IF NOT EXISTS `ticket`;
 
 CREATE TABLE `commodity` (
   `codename` varchar(20) NOT NULL,
