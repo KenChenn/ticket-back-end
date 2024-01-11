@@ -13,9 +13,11 @@ import org.springframework.stereotype.Repository;
 import com.example.ticketbackend.entity.Commodity;
 
 @Repository
-public interface CommodityDao extends JpaRepository<Commodity, String> {
+public interface CommodityDao extends JpaRepository<Commodity, Integer> {
 
 	public List<Commodity> findByCodename(String codename);
+	
+	public boolean existsByCodename(String codename);
 
 	@Query(value = "select * from Commodity where (name like %:name%) and (((now() >= start_date) AND (now() <= end_date)) OR (now() <= start_date))", nativeQuery = true)
 	public List<Commodity> searchCommodity(@Param("name") String name);

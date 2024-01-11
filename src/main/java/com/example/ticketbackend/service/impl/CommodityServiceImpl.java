@@ -52,7 +52,7 @@ public class CommodityServiceImpl implements CommodityService {
 		if (startDate.isAfter(endDate)) {
 			return new RtnCodeRes(RtnCode.DATE_FORMAT_ERROR);
 		}
-		if(commodityDao.existsById(codename)) {
+		if(commodityDao.existsByCodename(codename)) {
 			return new RtnCodeRes(RtnCode.CODENAME_EXISTED);
 		}
 		try {
@@ -81,65 +81,74 @@ public class CommodityServiceImpl implements CommodityService {
 	public RtnCodeRes updateCommodity(String codename, String name, String introduction, Boolean entity,
 			LocalDate startDate, LocalDate endDate, String place, String keyvisualImg, String introduceImg1,
 			String introduceImg2, String organizer) {
-		Optional<LocalDate> startDateOP = Optional.ofNullable(startDate);
-		Optional<LocalDate> endDateOP = Optional.ofNullable(endDate);
-//		if (!StringUtils.hasText(codename) || !StringUtils.hasText(name) || !StringUtils.hasText(introduction) || entity == null || !startDateOP.isPresent()
-//				|| !endDateOP.isPresent() || !StringUtils.hasText(place) || !StringUtils.hasText(organizer)) {
+		return null;
+	}
+	
+//	@Override
+//	public RtnCodeRes updateCommodity(String codename, String name, String introduction, Boolean entity,
+//			LocalDate startDate, LocalDate endDate, String place, String keyvisualImg, String introduceImg1,
+//			String introduceImg2, String organizer) {
+//		Optional<LocalDate> startDateOP = Optional.ofNullable(startDate);
+//		Optional<LocalDate> endDateOP = Optional.ofNullable(endDate);
+////		if (!StringUtils.hasText(codename) || !StringUtils.hasText(name) || !StringUtils.hasText(introduction) || entity == null || !startDateOP.isPresent()
+////				|| !endDateOP.isPresent() || !StringUtils.hasText(place) || !StringUtils.hasText(organizer)) {
+////			return new RtnCodeRes(RtnCode.PARAM_ERROR);
+////		}
+//		if (!StringUtils.hasText(codename)) {
 //			return new RtnCodeRes(RtnCode.PARAM_ERROR);
 //		}
-		if (!StringUtils.hasText(codename)) {
-			return new RtnCodeRes(RtnCode.PARAM_ERROR);
-		}
-		Optional<Commodity> op = commodityDao.findById(codename);
-		if (op.isEmpty()) {
-			return new RtnCodeRes(RtnCode.DATA_NOT_FOUND);
-		}
-		if (startDate.isAfter(endDate)) {
-			return new RtnCodeRes(RtnCode.DATE_FORMAT_ERROR);
-		}
-		Commodity commodity = op.get();
-		if(StringUtils.hasText(name)) {
-			commodity.setName(name);
-		}
-		if(StringUtils.hasText(introduction)) {
-			commodity.setIntroduction(introduction);
-		}
-		if(entity != null ) {
-			commodity.setEntity(entity);
-		}
-		if(startDateOP.isPresent()) {
-			commodity.setStartDate(startDate);
-		}
-		if(endDateOP.isPresent()) {
-			commodity.setEndDate(endDate);
-		}
-		if(StringUtils.hasText(place)) {
-			commodity.setPlace(place);
-		}
-		if(StringUtils.hasText(keyvisualImg)) {
-			commodity.setKeyvisualImg(keyvisualImg);
-		}
-		if(StringUtils.hasText(introduceImg1)) {
-			commodity.setIntroduceImg1(introduceImg1);
-		}
-		if(StringUtils.hasText(introduceImg2)) {
-			commodity.setIntroduceImg2(introduceImg2);
-		}
-		if(StringUtils.hasText(organizer)) {
-			commodity.setOrganizer(organizer);
-		}	
-		try {
-			commodityDao.save(commodity);
-		} catch (Exception e) {
-			return new RtnCodeRes(RtnCode.ORGANIZER_UPDATE_ERROR);
-		}
-		return new RtnCodeRes(RtnCode.SUCCESSFUL);
-	}
+//		Optional<Commodity> op = commodityDao.findById(codename);
+//		if (op.isEmpty()) {
+//			return new RtnCodeRes(RtnCode.DATA_NOT_FOUND);
+//		}
+//		if (startDate.isAfter(endDate)) {
+//			return new RtnCodeRes(RtnCode.DATE_FORMAT_ERROR);
+//		}
+//		Commodity commodity = op.get();
+//		if(StringUtils.hasText(name)) {
+//			commodity.setName(name);
+//		}
+//		if(StringUtils.hasText(introduction)) {
+//			commodity.setIntroduction(introduction);
+//		}
+//		if(entity != null ) {
+//			commodity.setEntity(entity);
+//		}
+//		if(startDateOP.isPresent()) {
+//			commodity.setStartDate(startDate);
+//		}
+//		if(endDateOP.isPresent()) {
+//			commodity.setEndDate(endDate);
+//		}
+//		if(StringUtils.hasText(place)) {
+//			commodity.setPlace(place);
+//		}
+//		if(StringUtils.hasText(keyvisualImg)) {
+//			commodity.setKeyvisualImg(keyvisualImg);
+//		}
+//		if(StringUtils.hasText(introduceImg1)) {
+//			commodity.setIntroduceImg1(introduceImg1);
+//		}
+//		if(StringUtils.hasText(introduceImg2)) {
+//			commodity.setIntroduceImg2(introduceImg2);
+//		}
+//		if(StringUtils.hasText(organizer)) {
+//			commodity.setOrganizer(organizer);
+//		}	
+//		try {
+//			commodityDao.save(commodity);
+//		} catch (Exception e) {
+//			return new RtnCodeRes(RtnCode.ORGANIZER_UPDATE_ERROR);
+//		}
+//		return new RtnCodeRes(RtnCode.SUCCESSFUL);
+//	}
 
 	@Override
 	public GetCommodityDataRes searchCommodity(String name) {
 		return new GetCommodityDataRes(RtnCode.SUCCESSFUL,commodityDao.searchCommodity(name));
 	}
+
+
 
 	
 	

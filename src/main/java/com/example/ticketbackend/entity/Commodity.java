@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,7 +14,11 @@ import javax.persistence.Table;
 @Table(name = "commodity")
 public class Commodity {
 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@Column(name = "id")
+	private int id;
+	
 	@Column(name = "codename")
 	private String codename;
 	
@@ -49,6 +55,27 @@ public class Commodity {
 	public Commodity() {
 		super();
 	}
+	
+	
+
+	public Commodity(int id, String codename, String name, String introduction, boolean entity, LocalDate startDate,
+			LocalDate endDate, String place, String keyvisualImg, String introduceImg1, String introduceImg2,
+			String organizer) {
+		super();
+		this.id = id;
+		this.codename = codename;
+		this.name = name;
+		this.introduction = introduction;
+		this.entity = entity;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.place = place;
+		this.keyvisualImg = keyvisualImg;
+		this.introduceImg1 = introduceImg1;
+		this.introduceImg2 = introduceImg2;
+		this.organizer = organizer;
+	}
+
 
 	public Commodity(String codename, String name, String introduction, boolean entity, LocalDate startDate,
 			LocalDate endDate, String place, String keyvisualImg, String introduceImg1, String introduceImg2,

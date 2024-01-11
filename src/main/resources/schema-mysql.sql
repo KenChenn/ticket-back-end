@@ -1,5 +1,6 @@
 
 CREATE TABLE `commodity` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `codename` varchar(20) NOT NULL,
   `name` varchar(60) NOT NULL,
   `introduction` text NOT NULL,
@@ -11,8 +12,10 @@ CREATE TABLE `commodity` (
   `introduce_img1` mediumtext,
   `introduce_img2` mediumtext,
   `organizer` varchar(30) NOT NULL,
-  PRIMARY KEY (`codename`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codename_UNIQUE` (`codename`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 
 
