@@ -7,9 +7,9 @@ CREATE TABLE `commodity` (
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
   `place` varchar(60) NOT NULL,
-  `keyvisual_img` blob,
-  `introduce_img1` blob,
-  `introduce_img2` blob,
+  `keyvisual_img` mediumtext,
+  `introduce_img1` mediumtext,
+  `introduce_img2` mediumtext,
   `organizer` varchar(30) NOT NULL,
   PRIMARY KEY (`codename`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -20,20 +20,22 @@ CREATE TABLE `forum` (
   `commodity_codename` varchar(20) NOT NULL,
   `commenter` varchar(20) NOT NULL,
   `comments` text NOT NULL,
-  `comment_date` date NOT NULL,
+  `comment_datetime` datetime NOT NULL,
   PRIMARY KEY (`commodity_codename`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE `order` (
   `order_num` int NOT NULL,
   `commodity_num` int NOT NULL,
   `buy_account` varchar(20) NOT NULL,
-  `buy_date` date NOT NULL,
+  `buy_date_time` datetime NOT NULL,
   `total_price` int NOT NULL,
   `payfinal_date` date NOT NULL,
   `is_payment` tinyint DEFAULT '0',
   PRIMARY KEY (`order_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE `organizer` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -56,13 +58,15 @@ CREATE TABLE `seat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `sessions` (
-  `num` int NOT NULL,
+  `num` int NOT NULL AUTO_INCREMENT,
   `commodity_codename` varchar(20) NOT NULL,
-  `show_date` date NOT NULL,
-  `start_selldate` date NOT NULL,
-  `end_selldate` date NOT NULL,
+  `show_datetime` datetime NOT NULL,
+  `start_sell_datetime` datetime NOT NULL,
+  `end_sell_datetime` datetime NOT NULL,
   PRIMARY KEY (`num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 
 
 CREATE TABLE `tracking` (

@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.ticketbackend.entity.Seat;
 import com.example.ticketbackend.repository.SeatDao;
+import com.example.ticketbackend.service.ifs.SeatService;
 
 
 @SpringBootTest
@@ -25,6 +26,10 @@ public class SeatServiceTest {
 	
 	@Autowired
 	private SeatDao seatDao;
+	
+	@Autowired
+	private SeatService seatService;
+	
 	
 	public List<Seat> createDate(){
 		List<Seat> data = new ArrayList<Seat>();
@@ -90,11 +95,14 @@ public class SeatServiceTest {
 	
 	@Test
 	public void jpaInto() {
-		List<Seat> seats = createDate();
-		long start = System.currentTimeMillis();
-		seatDao.saveAll(seats);
-		long end = System.currentTimeMillis();
-		String result = String.format("Total time: %d ²@¬í", (end - start));
-		System.out.println(result);
+//		seatService.insertSeat(112, "A2", 500, 4000);
+//		seatService.insertSeat(new Seat(123,"A",1,4000));
+		
+//		List<Seat> seats = createDate();
+//		long start = System.currentTimeMillis();
+//		seatDao.saveAll(seats);
+//		long end = System.currentTimeMillis();
+//		String result = String.format("Total time: %d ²@¬í", (end - start));
+//		System.out.println(result);
 	}
 }

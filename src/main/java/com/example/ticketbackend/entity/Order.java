@@ -1,6 +1,7 @@
 package com.example.ticketbackend.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,8 +22,8 @@ public class Order {
 	@Column(name="buy_account")
 	private String buyAccount;
 	
-	@Column(name="buy_date")
-	private LocalDate buyDate;
+	@Column(name="buy_date_time")
+	private LocalDateTime buyDateTime;
 	
 	@Column(name="total_price")
 	private int totalPrice;
@@ -37,13 +38,13 @@ public class Order {
 		super();
 	}
 
-	public Order(int orderNum, int commodityNum, String buyAccount, LocalDate buyDate, int totalPrice,
+	public Order(int orderNum, int commodityNum, String buyAccount, LocalDateTime buyDateTime, int totalPrice,
 			LocalDate payFinalDate, boolean payment) {
 		super();
 		this.orderNum = orderNum;
 		this.commodityNum = commodityNum;
 		this.buyAccount = buyAccount;
-		this.buyDate = buyDate;
+		this.buyDateTime = buyDateTime;
 		this.totalPrice = totalPrice;
 		this.payFinalDate = payFinalDate;
 		this.payment = payment;
@@ -73,12 +74,12 @@ public class Order {
 		this.buyAccount = buyAccount;
 	}
 
-	public LocalDate getBuyDate() {
-		return buyDate;
+	public LocalDateTime getBuyDateTime() {
+		return buyDateTime;
 	}
 
-	public void setBuyDate(LocalDate buyDate) {
-		this.buyDate = buyDate;
+	public void setBuyDateTime(LocalDateTime buyDateTime) {
+		this.buyDateTime = buyDateTime;
 	}
 
 	public int getTotalPrice() {
@@ -104,6 +105,7 @@ public class Order {
 	public void setPayment(boolean payment) {
 		this.payment = payment;
 	}
+
 	
 	
 

@@ -27,6 +27,19 @@ public class CommodityServiceImpl implements CommodityService {
 	private CommodityDao commodityDao;
 
 	@Override
+	public RtnCodeRes commodityDataCheck(String codename, String name, String introduction, Boolean entity,
+			LocalDate startDate, LocalDate endDate, String place, String organizer) {
+		Optional<LocalDate> startDateOP = Optional.ofNullable(startDate);
+		Optional<LocalDate> endDateOP = Optional.ofNullable(endDate);
+		if (!StringUtils.hasText(codename) || !StringUtils.hasText(name) || !StringUtils.hasText(introduction) || entity == null || !startDateOP.isPresent()
+				|| !endDateOP.isPresent() || !StringUtils.hasText(place) || !StringUtils.hasText(organizer)) {
+			return new RtnCodeRes(RtnCode.DATA_CHECK_ERROR);
+		}
+		return new RtnCodeRes(RtnCode.DATA_CHECK_SUCCESSFUL);
+	}
+	
+	
+	@Override
 	public RtnCodeRes addCommodity(String codename, String name, String introduction, Boolean entity,
 			LocalDate startDate, LocalDate endDate, String place, String keyvisualImg, String introduceImg1,
 			String introduceImg2, String organizer) {
