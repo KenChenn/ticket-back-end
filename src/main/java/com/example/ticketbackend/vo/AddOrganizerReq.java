@@ -12,19 +12,20 @@ public class AddOrganizerReq {
 	
 	private String url;
 
+	private String sns;
+
 	public AddOrganizerReq() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	
-	public AddOrganizerReq(String name, String email, String phone, String address, String url) {
+	public AddOrganizerReq(String name, String email, String phone, String address, String url, String sns) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
 		this.address = address;
 		this.url = url;
+		this.sns = sns;
 	}
 
 	public String getName() {
@@ -66,6 +67,17 @@ public class AddOrganizerReq {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+	public String getSns() {
+		return sns;
+	}
+
+	public void setSns(String sns) {
+		this.sns = sns;
+	}
+
+
+	
 	
 	
 } 

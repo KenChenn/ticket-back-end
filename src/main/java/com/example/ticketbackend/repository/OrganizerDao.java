@@ -7,6 +7,7 @@ import com.example.ticketbackend.entity.Organizer;
 
 @Repository
 public interface OrganizerDao extends JpaRepository<Organizer,Integer> {
+	
 
 	public boolean existsByName(String name);
 

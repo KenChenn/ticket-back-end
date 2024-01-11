@@ -27,19 +27,27 @@ public class Seat {
 	private int price;
 
 	@Column(name = "order_num")
-	private int orderNum;
+	private Integer orderNum;
 
 	public Seat() {
 		super();
 	}
 
-	public Seat(int num, String area, int seatNum, int price, int orderNum) {
+	public Seat(int num, String area, int seatNum, int price, Integer orderNum) {
 		super();
 		this.num = num;
 		this.area = area;
 		this.seatNum = seatNum;
 		this.price = price;
 		this.orderNum = orderNum;
+	}
+	
+	public Seat(int num, String area, int seatNum, int price) {
+		super();
+		this.num = num;
+		this.area = area;
+		this.seatNum = seatNum;
+		this.price = price;
 	}
 
 	public int getNum() {
@@ -74,12 +82,14 @@ public class Seat {
 		this.price = price;
 	}
 
-	public int getOrderNum() {
+	public Integer getOrderNum() {
 		return orderNum;
 	}
 
-	public void setOrderNum(int orderNum) {
+	public void setOrderNum(Integer orderNum) {
 		this.orderNum = orderNum;
 	}
 
+	
+	
 }
