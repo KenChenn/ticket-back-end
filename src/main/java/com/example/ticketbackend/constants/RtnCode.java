@@ -25,6 +25,9 @@ public enum RtnCode {
 	SESSION_ADD_ERROR(400,"Session Add Error"),//新增場次失敗
 	SEAT_ADD_ERROR(400,"Seat Add Error"),//新增座位失敗
 	SESSION_CODENAME_NOT_MATCH_COMMODITY_CODENAME(400,"Session Codename Not Match Commodity Codename"),//場次資料裡的節目代號與節目代號不一致
+	ALREADY_TRACKED(400,"Already Tracked"), //已經追蹤了
+	NOT_TRACKGIN(400,"Not Tracking"),//原本就沒追蹤
+	UNTRACK_ERROR(400,"Untrack Error"),//退追失敗
 	;
 
 
