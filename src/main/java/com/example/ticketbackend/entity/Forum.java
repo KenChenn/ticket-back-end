@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,7 +13,11 @@ import javax.persistence.Table;
 @Table(name= "forum")
 public class Forum {
 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@Column(name = "id")
+	private int id;
+	
 	@Column(name = "commodity_codename")
 	private String commodityCodename;
 	
@@ -26,14 +32,32 @@ public class Forum {
 
 	public Forum() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
+	public Forum(int id, String commodityCodename, String commenter, String comments, LocalDateTime commentDateTime) {
+		super();
+		this.id = id;
+		this.commodityCodename = commodityCodename;
+		this.commenter = commenter;
+		this.comments = comments;
+		this.commentDateTime = commentDateTime;
+	}
+	
 	public Forum(String commodityCodename, String commenter, String comments, LocalDateTime commentDateTime) {
 		super();
 		this.commodityCodename = commodityCodename;
 		this.commenter = commenter;
 		this.comments = comments;
 		this.commentDateTime = commentDateTime;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getCommodityCodename() {
@@ -67,6 +91,9 @@ public class Forum {
 	public void setCommentDateTime(LocalDateTime commentDateTime) {
 		this.commentDateTime = commentDateTime;
 	}
+
+	
+
 	
 
 	

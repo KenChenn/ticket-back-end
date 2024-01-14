@@ -12,7 +12,7 @@ public enum RtnCode {
 	PLEASE_ENTER_NEW_PWD(400,"Please Enter New Password"), //新密碼與舊密碼一樣
 	ORGANIZER_EXISTED(400,"Organizer Existed"), //主辦單位已存在
 	ORGANIZER_ADD_ERROR(400,"Organizer Add Error"),//主辦單位新增失敗
-	PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST(400,"Please Login Admin Account First"), //新先登入管理者權限帳號
+	PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST(400,"Please Login Admin Account First"), //請先登入管理者權限帳號
 	DATA_NOT_FOUND(400,"Data Not Found"), //找不到資料
 	ORGANIZER_UPDATE_ERROR(400,"Organizer Update Error"), //主辦單位修改失敗
 	ORGANIZER_DELETE_ERROR(400,"Organizer Delete Error"), //主辦單位刪除失敗
@@ -28,6 +28,10 @@ public enum RtnCode {
 	ALREADY_TRACKED(400,"Already Tracked"), //已經追蹤了
 	NOT_TRACKGIN(400,"Not Tracking"),//原本就沒追蹤
 	UNTRACK_ERROR(400,"Untrack Error"),//退追失敗
+	COMMENT_ERROR(400,"Comment Error"),//留言失敗
+	PLEASE_LOGIN_FIRST(400,"Please Login First"), //請先登入帳號
+	COMMENTER_ERROR(400,"Commenter Error"), //非該留言的留言帳號
+	COMMENT_DELETE_ERROR(400,"Comment Delete Error"), //留言刪除失敗
 	;
 
 
