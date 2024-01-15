@@ -32,14 +32,15 @@ CREATE TABLE `forum` (
 
 CREATE TABLE `order` (
   `order_num` int NOT NULL,
-  `commodity_num` int NOT NULL,
+  `sessions_num` int NOT NULL,
   `buy_account` varchar(20) NOT NULL,
   `buy_date_time` datetime NOT NULL,
   `total_price` int NOT NULL,
-  `payfinal_date` date NOT NULL,
+  `payfinal_date` datetime NOT NULL,
   `is_payment` tinyint DEFAULT '0',
   PRIMARY KEY (`order_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 
 CREATE TABLE `organizer` (

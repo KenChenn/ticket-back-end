@@ -32,6 +32,12 @@ public enum RtnCode {
 	PLEASE_LOGIN_FIRST(400,"Please Login First"), //請先登入帳號
 	COMMENTER_ERROR(400,"Commenter Error"), //非該留言的留言帳號
 	COMMENT_DELETE_ERROR(400,"Comment Delete Error"), //留言刪除失敗
+	EXCEED_THE_UPPER_LIMIT(400,"Exceed The Upper Limit"),//超過單次可購買上限
+	NOT_ENOUGH_TICKETS(400,"Not Enough Tickets"), //沒有足夠的票卷
+	ORDER_ERROR(400,"Order Error"), //下訂失敗
+	PAYMENT_DEADLINE_EXCEEDED(400,"Payment Deadline Exceeded"), //已超過付款時間
+	BUYER_ERROR(400,"Buyer Error"), //非該筆訂單購買人
+	PAYMENT_ERROR(400,"Payment Error"), //付款失敗
 	;
 
 

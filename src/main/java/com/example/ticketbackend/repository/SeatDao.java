@@ -5,15 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.sql.DataSource;
+import javax.persistence.LockModeType;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.ticketbackend.entity.Seat;
 import com.example.ticketbackend.entity.SeatId;
-import com.example.ticketbackend.vo.RtnCodeRes;
 
 @Repository
 public interface SeatDao extends JpaRepository<Seat, SeatId> {
@@ -57,5 +59,15 @@ public interface SeatDao extends JpaRepository<Seat, SeatId> {
 		}
 
 	}
+	
+//	@Lock(LockModeType.PESSIMISTIC_WRITE) 這個鎖定方式只能用在nativeQuery = false
+//	@Transactional
+//	@Modifying
+//	@Query(value = "select * from Seat where (num = :num) and (area = :area) and (buy_num is null) LIMIT :buyPieces FOR UPDATE", nativeQuery = true)
+//	public List<Seat> getTickets(@Param("num")int num,@Param("area")String area,@Param("buyPieces")int buyPieces);
+	
+	@Lock(LockModeType.PESSIMISTIC_WRITE)
+	@Transactional
+	public List<Seat> findAllTopNByNumAndAreaAndBuyNumIsNull(int num, String area, Pageable pageable);
 
 }
