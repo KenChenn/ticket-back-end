@@ -1,9 +1,11 @@
 package com.example.ticketbackend.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,6 +13,7 @@ import javax.persistence.Table;
 @Table(name="sessions")
 public class Sessions {
 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	@Column(name = "num")
 	private int num;
@@ -18,31 +21,28 @@ public class Sessions {
 	@Column(name = "commodity_codename")
 	private String commodityCodename;
 	
-	@Column(name = "show_date")
-	private LocalDate showDate;
+	@Column(name = "show_datetime")
+	private LocalDateTime showDateTime;
 	
-	@Column(name = "place")
-	private String place;
 	
-	@Column(name = "start_selldate")
-	private LocalDate startSelldate;
+	@Column(name = "start_sell_datetime")
+	private LocalDateTime startSellDateTime;
 	
-	@Column(name = "end_selldate")
-	private LocalDate endSelldate;
+	@Column(name = "end_sell_datetime")
+	private LocalDateTime endSellDateTime;
 
 	public Sessions() {
 		super();
 	}
 
-	public Sessions(int num, String commodityCodename, LocalDate showDate, String place, LocalDate startSelldate,
-			LocalDate endSelldate) {
+	public Sessions(int num, String commodityCodename, LocalDateTime showDateTime, LocalDateTime startSellDateTime,
+			LocalDateTime endSellDateTime) {
 		super();
 		this.num = num;
 		this.commodityCodename = commodityCodename;
-		this.showDate = showDate;
-		this.place = place;
-		this.startSelldate = startSelldate;
-		this.endSelldate = endSelldate;
+		this.showDateTime = showDateTime;
+		this.startSellDateTime = startSellDateTime;
+		this.endSellDateTime = endSellDateTime;
 	}
 
 	public int getNum() {
@@ -61,37 +61,32 @@ public class Sessions {
 		this.commodityCodename = commodityCodename;
 	}
 
-	public LocalDate getShowDate() {
-		return showDate;
+	public LocalDateTime getShowDateTime() {
+		return showDateTime;
 	}
 
-	public void setShowDate(LocalDate showDate) {
-		this.showDate = showDate;
+	public void setShowDateTime(LocalDateTime showDateTime) {
+		this.showDateTime = showDateTime;
 	}
 
-	public String getPlace() {
-		return place;
+	public LocalDateTime getStartSellDateTime() {
+		return startSellDateTime;
 	}
 
-	public void setPlace(String place) {
-		this.place = place;
+	public void setStartSellDateTime(LocalDateTime startSellDateTime) {
+		this.startSellDateTime = startSellDateTime;
 	}
 
-	public LocalDate getStartSelldate() {
-		return startSelldate;
+	public LocalDateTime getEndSellDateTime() {
+		return endSellDateTime;
 	}
 
-	public void setStartSelldate(LocalDate startSelldate) {
-		this.startSelldate = startSelldate;
+	public void setEndSellDateTime(LocalDateTime endSellDateTime) {
+		this.endSellDateTime = endSellDateTime;
 	}
 
-	public LocalDate getEndSelldate() {
-		return endSelldate;
-	}
-
-	public void setEndSelldate(LocalDate endSelldate) {
-		this.endSelldate = endSelldate;
-	}
+	
+	
 	
 	
 	

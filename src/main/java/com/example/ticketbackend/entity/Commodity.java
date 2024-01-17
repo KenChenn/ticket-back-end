@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,7 +14,11 @@ import javax.persistence.Table;
 @Table(name = "commodity")
 public class Commodity {
 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@Column(name = "id")
+	private int id;
+	
 	@Column(name = "codename")
 	private String codename;
 	
@@ -31,8 +37,17 @@ public class Commodity {
 	@Column(name = "end_date")
 	private LocalDate endDate;
 	
-	@Column(name = "image")
-	private Blob image;
+	@Column(name = "place")
+	private String place;
+	
+	@Column(name = "keyvisual_img")
+	private String keyvisualImg;
+	
+	@Column(name = "introduce_img1")
+	private String introduceImg1;
+	
+	@Column(name = "introduce_img2")
+	private String introduceImg2;
 	
 	@Column(name = "organizer")
 	private String organizer;
@@ -40,9 +55,31 @@ public class Commodity {
 	public Commodity() {
 		super();
 	}
+	
+	
+
+	public Commodity(int id, String codename, String name, String introduction, boolean entity, LocalDate startDate,
+			LocalDate endDate, String place, String keyvisualImg, String introduceImg1, String introduceImg2,
+			String organizer) {
+		super();
+		this.id = id;
+		this.codename = codename;
+		this.name = name;
+		this.introduction = introduction;
+		this.entity = entity;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.place = place;
+		this.keyvisualImg = keyvisualImg;
+		this.introduceImg1 = introduceImg1;
+		this.introduceImg2 = introduceImg2;
+		this.organizer = organizer;
+	}
+
 
 	public Commodity(String codename, String name, String introduction, boolean entity, LocalDate startDate,
-			LocalDate endDate, Blob image, String organizer) {
+			LocalDate endDate, String place, String keyvisualImg, String introduceImg1, String introduceImg2,
+			String organizer) {
 		super();
 		this.codename = codename;
 		this.name = name;
@@ -50,7 +87,10 @@ public class Commodity {
 		this.entity = entity;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.image = image;
+		this.place = place;
+		this.keyvisualImg = keyvisualImg;
+		this.introduceImg1 = introduceImg1;
+		this.introduceImg2 = introduceImg2;
 		this.organizer = organizer;
 	}
 
@@ -102,12 +142,36 @@ public class Commodity {
 		this.endDate = endDate;
 	}
 
-	public Blob getImage() {
-		return image;
+	public String getPlace() {
+		return place;
 	}
 
-	public void setImage(Blob image) {
-		this.image = image;
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public String getKeyvisualImg() {
+		return keyvisualImg;
+	}
+
+	public void setKeyvisualImg(String keyvisualImg) {
+		this.keyvisualImg = keyvisualImg;
+	}
+
+	public String getIntroduceImg1() {
+		return introduceImg1;
+	}
+
+	public void setIntroduceImg1(String introduceImg1) {
+		this.introduceImg1 = introduceImg1;
+	}
+
+	public String getIntroduceImg2() {
+		return introduceImg2;
+	}
+
+	public void setIntroduceImg2(String introduceImg2) {
+		this.introduceImg2 = introduceImg2;
 	}
 
 	public String getOrganizer() {
@@ -117,7 +181,9 @@ public class Commodity {
 	public void setOrganizer(String organizer) {
 		this.organizer = organizer;
 	}
+
 	
+
 	
-	
+
 }
