@@ -32,6 +32,13 @@ public class Tracking {
 		this.tracker = tracker;
 		this.commodityCodename = commodityCodename;
 	}
+	
+	public Tracking(String tracker, String commodityCodename) {
+		super();
+		this.tracker = tracker;
+		this.commodityCodename = commodityCodename;
+	}
+
 
 	public int getId() {
 		return id;

@@ -1,6 +1,7 @@
 package com.example.ticketbackend.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,61 +9,61 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="order")
-public class Order {
+@Table(name="buy")
+public class Buy {
 	
 	@Id
-	@Column(name="order_num")
-	private int orderNum;
+	@Column(name="buy_num")
+	private String buyNum;
 	
-	@Column(name="commodity_num")
-	private int commodityNum;
+	@Column(name="sessions_num")
+	private int sessionsNum;
 	
 	@Column(name="buy_account")
 	private String buyAccount;
 	
-	@Column(name="buy_date")
-	private LocalDate buyDate;
+	@Column(name="buy_date_time")
+	private LocalDateTime buyDateTime;
 	
 	@Column(name="total_price")
 	private int totalPrice;
 	
 	@Column(name="payfinal_date")
-	private LocalDate payFinalDate;
+	private LocalDateTime payFinalDate;
 	
 	@Column(name="is_payment")
 	private boolean payment;
 
-	public Order() {
+	public Buy() {
 		super();
 	}
 
-	public Order(int orderNum, int commodityNum, String buyAccount, LocalDate buyDate, int totalPrice,
-			LocalDate payFinalDate, boolean payment) {
+	public Buy(String buyNum, int sessionsNum, String buyAccount, LocalDateTime buyDateTime, int totalPrice,
+			LocalDateTime payFinalDate) {
 		super();
-		this.orderNum = orderNum;
-		this.commodityNum = commodityNum;
+		this.buyNum = buyNum;
+		this.sessionsNum = sessionsNum;
 		this.buyAccount = buyAccount;
-		this.buyDate = buyDate;
+		this.buyDateTime = buyDateTime;
 		this.totalPrice = totalPrice;
 		this.payFinalDate = payFinalDate;
 		this.payment = payment;
 	}
 
-	public int getOrderNum() {
-		return orderNum;
+	public String getBuyNum() {
+		return buyNum;
 	}
 
-	public void setOrderNum(int orderNum) {
-		this.orderNum = orderNum;
+	public void setBuyNum(String buyNum) {
+		this.buyNum = buyNum;
 	}
 
-	public int getCommodityNum() {
-		return commodityNum;
+	public int getSessionsNum() {
+		return sessionsNum;
 	}
 
-	public void setCommodityNum(int commodityNum) {
-		this.commodityNum = commodityNum;
+	public void setSessionsNum(int sessionsNum) {
+		this.sessionsNum = sessionsNum;
 	}
 
 	public String getBuyAccount() {
@@ -73,12 +74,12 @@ public class Order {
 		this.buyAccount = buyAccount;
 	}
 
-	public LocalDate getBuyDate() {
-		return buyDate;
+	public LocalDateTime getBuyDateTime() {
+		return buyDateTime;
 	}
 
-	public void setBuyDate(LocalDate buyDate) {
-		this.buyDate = buyDate;
+	public void setBuyDateTime(LocalDateTime buyDateTime) {
+		this.buyDateTime = buyDateTime;
 	}
 
 	public int getTotalPrice() {
@@ -89,11 +90,11 @@ public class Order {
 		this.totalPrice = totalPrice;
 	}
 
-	public LocalDate getPayFinalDate() {
+	public LocalDateTime getPayFinalDate() {
 		return payFinalDate;
 	}
 
-	public void setPayFinalDate(LocalDate payFinalDate) {
+	public void setPayFinalDate(LocalDateTime payFinalDate) {
 		this.payFinalDate = payFinalDate;
 	}
 
@@ -104,6 +105,9 @@ public class Order {
 	public void setPayment(boolean payment) {
 		this.payment = payment;
 	}
+
+	
+	
 	
 	
 

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "seat")
@@ -26,22 +27,17 @@ public class Seat {
 	@Column(name = "price")
 	private int price;
 
-	@Column(name = "order_num")
-	private Integer orderNum;
+	@Column(name = "buy_num")
+	private String buyNum;
+	
+	@Version
+	@Column(name = "version")
+	private int version;
 
 	public Seat() {
 		super();
 	}
 
-	public Seat(int num, String area, int seatNum, int price, Integer orderNum) {
-		super();
-		this.num = num;
-		this.area = area;
-		this.seatNum = seatNum;
-		this.price = price;
-		this.orderNum = orderNum;
-	}
-	
 	public Seat(int num, String area, int seatNum, int price) {
 		super();
 		this.num = num;
@@ -82,13 +78,26 @@ public class Seat {
 		this.price = price;
 	}
 
-	public Integer getOrderNum() {
-		return orderNum;
+	public String getBuyNum() {
+		return buyNum;
 	}
 
-	public void setOrderNum(Integer orderNum) {
-		this.orderNum = orderNum;
+	public void setBuyNum(String buyNum) {
+		this.buyNum = buyNum;
 	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	
+
+
+	
 
 	
 	
