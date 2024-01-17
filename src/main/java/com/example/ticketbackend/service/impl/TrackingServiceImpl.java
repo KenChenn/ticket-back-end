@@ -10,6 +10,7 @@ import com.example.ticketbackend.constants.RtnCode;
 import com.example.ticketbackend.entity.Tracking;
 import com.example.ticketbackend.repository.TrackingDao;
 import com.example.ticketbackend.service.ifs.TrackingService;
+import com.example.ticketbackend.vo.GetTrackingList;
 import com.example.ticketbackend.vo.GetTrackingListRes;
 import com.example.ticketbackend.vo.TrackRes;
 
@@ -64,7 +65,7 @@ public class TrackingServiceImpl implements TrackingService {
 		if (!StringUtils.hasText(tracker)) {
 			return new GetTrackingListRes(RtnCode.PARAM_ERROR, null);
 		}
-	   List<Tracking> data = trackingDao.getTrackingList(tracker);
+	   List<GetTrackingList> data = trackingDao.getTrackingList(tracker);
 		return new GetTrackingListRes(RtnCode.SUCCESSFUL, data);
 	}
 

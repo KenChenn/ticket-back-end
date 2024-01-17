@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ticketbackend.constants.RtnCode;
 import com.example.ticketbackend.service.ifs.BuyService;
 import com.example.ticketbackend.vo.BuyReq;
+import com.example.ticketbackend.vo.GetOrderListRes;
 import com.example.ticketbackend.vo.PaymenyReq;
 import com.example.ticketbackend.vo.RtnCodeRes;
+import com.example.ticketbackend.vo.UserLoginReq;
 
 @CrossOrigin
 @RestController
@@ -38,6 +40,16 @@ public class BuyController {
 			return new RtnCodeRes(RtnCode.PLEASE_LOGIN_FIRST);
 		}
 		RtnCodeRes res = buyService.payment(req.getBuyNum(), attr);
+		return res;	
+		}
+	
+	@PostMapping(value = "api/getOrderData")
+	public GetOrderListRes payment(@RequestBody UserLoginReq req, HttpSession session) {
+		String attr = (String) session.getAttribute("account");
+		if (!StringUtils.hasText(attr)) {
+			return new GetOrderListRes(RtnCode.PLEASE_LOGIN_FIRST,null);
+		}
+		GetOrderListRes res = buyService.getOrderList(req.getAccount());
 		return res;	
 		}
 

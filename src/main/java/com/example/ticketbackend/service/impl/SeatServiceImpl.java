@@ -16,6 +16,7 @@ import com.example.ticketbackend.entity.Seat;
 import com.example.ticketbackend.repository.SeatDao;
 import com.example.ticketbackend.repository.SessionsDao;
 import com.example.ticketbackend.service.ifs.SeatService;
+import com.example.ticketbackend.vo.GetSeatDataVo;
 import com.example.ticketbackend.vo.RtnCodeRes;
 import com.example.ticketbackend.vo.SeatReq;
 
@@ -65,5 +66,44 @@ public class SeatServiceImpl implements SeatService {
 			}
 		}
 		return new RtnCodeRes(RtnCode.DATA_CHECK_SUCCESSFUL);
+	}
+
+
+	@Override
+	public RtnCodeRes cancelOrder(String account, String buyNum) {
+		if (!StringUtils.hasText(account)|| !StringUtils.hasText(buyNum)) {
+			return new RtnCodeRes(RtnCode.PARAM_ERROR);
+		}
+		List<GetSeatDataVo> data = seatDao.getSeatDataByBuyNum(buyNum);
+		if(data.size() <= 0) {
+			return new RtnCodeRes(RtnCode.DATA_NOT_FOUND);
+		}
+		if(!data.get(0).getBuyAccount().equals(account)) {
+			return new RtnCodeRes(RtnCode.BUYER_ERROR);
+		}
+		if(LocalDateTime.now().isAfter(data.get(0).getPayFinalDate())) {
+			return new RtnCodeRes(RtnCode.ORDER_EXPIRED);
+		}
+		
+		if(LocalDateTime.now().isBefore(data.get(0).getStartSellDateTime()) || LocalDateTime.now().isAfter(data.get(0).getEndSellDateTime())) {
+			return new RtnCodeRes(RtnCode.NOT_CANCEL_DATE);
+		}
+		List<Seat> saveData = new ArrayList<Seat>();
+		for (int i = 0; i < data.size(); i++) {
+			Seat s = new Seat();
+			s.setNum(data.get(i).getNum());
+			s.setArea(data.get(i).getArea());
+			s.setSeatNum(data.get(i).getSeatNum());
+			s.setPrice(data.get(i).getPrice());
+			s.setBuyNum(null);
+			s.setVersion(data.get(i).getVersion());
+			saveData.add(s);
+		}
+		try {
+			seatDao.saveAll(saveData);
+		} catch (Exception e) {
+			return new RtnCodeRes(RtnCode.CANCEL_ERROR);
+		}
+		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 }

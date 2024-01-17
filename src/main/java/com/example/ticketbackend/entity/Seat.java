@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "seat")
@@ -28,6 +29,10 @@ public class Seat {
 
 	@Column(name = "buy_num")
 	private String buyNum;
+	
+	@Version
+	@Column(name = "version")
+	private int version;
 
 	public Seat() {
 		super();
@@ -81,6 +86,15 @@ public class Seat {
 		this.buyNum = buyNum;
 	}
 
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	
 
 
 	

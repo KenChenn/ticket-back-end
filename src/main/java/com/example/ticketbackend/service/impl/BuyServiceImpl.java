@@ -2,13 +2,13 @@ package com.example.ticketbackend.service.impl;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -18,7 +18,10 @@ import com.example.ticketbackend.entity.Seat;
 import com.example.ticketbackend.repository.BuyDao;
 import com.example.ticketbackend.repository.SeatDao;
 import com.example.ticketbackend.service.ifs.BuyService;
+import com.example.ticketbackend.vo.BuyDataVo;
+import com.example.ticketbackend.vo.GetOrderListRes;
 import com.example.ticketbackend.vo.RtnCodeRes;
+import com.example.ticketbackend.vo.TicketJoinVo;
 
 @Service
 public class BuyServiceImpl implements BuyService {
@@ -36,22 +39,38 @@ public class BuyServiceImpl implements BuyService {
 		if (buyPieces > 4) {
 			return new RtnCodeRes(RtnCode.EXCEED_THE_UPPER_LIMIT);
 		}
-		Pageable pageable = PageRequest.of(0, buyPieces);
-		List<Seat> data = seatDao.findAllTopNByNumAndAreaAndBuyNumIsNull(sessionsNum, area, pageable);
+//		Pageable pageable = PageRequest.of(0, buyPieces);
+//		List<Seat> data = seatDao.findAllTopNByNumAndAreaAndBuyNumIsNull(sessionsNum, area, pageable);
+		List<TicketJoinVo> data = seatDao.getTickets(sessionsNum, area, PageRequest.of(0, buyPieces));	
+		System.out.println(data.size());
 		if (data.size() < buyPieces) {
 			return new RtnCodeRes(RtnCode.NOT_ENOUGH_TICKETS);
+		}
+		if(LocalDateTime.now().isBefore(data.get(0).getStartSellDateTime()) || LocalDateTime.now().isAfter(data.get(0).getEndSellDateTime())) {
+			return new RtnCodeRes(RtnCode.NOT_SELLING_DATE);
 		}
 		UUID uuidCreate = UUID.randomUUID();
 		String uuid = Long.toString(uuidCreate.getMostSignificantBits()).substring(1, 10)
 				+ RandomStringUtils.randomNumeric(3);
 		int totalPrice = 0;
+		List<Seat> saveData = new ArrayList<Seat>();
 		for (int i = 0; i < data.size(); i++) {
-			data.get(i).setBuyNum(uuid);
+//			data.get(i).setBuyNum(uuid);
 			totalPrice += data.get(i).getPrice();
+			Seat s = new Seat();
+			s.setNum(data.get(i).getNum());
+			s.setArea(data.get(i).getArea());
+			s.setSeatNum(data.get(i).getSeatNum());
+			s.setPrice(data.get(i).getPrice());
+			s.setBuyNum(uuid);
+			s.setVersion(data.get(i).getVersion());
+			saveData.add(s);
 		}
 		try {
-			seatDao.saveAll(data);
+			seatDao.saveAll(saveData);
 		} catch (Exception e) {
+			System.out.println(e);
+			System.out.println("Àx¦s¥¢±Ñ");
 			return new RtnCodeRes(RtnCode.ORDER_ERROR);
 		}
 		LocalDateTime deadLine = LocalDateTime.now().plusDays(3);
@@ -88,6 +107,15 @@ public class BuyServiceImpl implements BuyService {
 			return new RtnCodeRes(RtnCode.PAYMENT_ERROR);
 		}
 		return new RtnCodeRes(RtnCode.SUCCESSFUL);
+	}
+
+	@Override
+	public GetOrderListRes getOrderList(String account) {
+		if (!StringUtils.hasText(account)) {
+			return new GetOrderListRes(RtnCode.PARAM_ERROR,null);
+		}
+		List<BuyDataVo> data = buyDao.getOrderList(account);
+		return new GetOrderListRes(RtnCode.SUCCESSFUL,data);
 	}
 
 }

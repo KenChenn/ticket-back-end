@@ -5,17 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.persistence.LockModeType;
-
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Lock;
-import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.example.ticketbackend.entity.Seat;
 import com.example.ticketbackend.entity.SeatId;
+import com.example.ticketbackend.vo.GetSeatDataVo;
+import com.example.ticketbackend.vo.TicketJoinVo;
 
 @Repository
 public interface SeatDao extends JpaRepository<Seat, SeatId> {
@@ -60,14 +59,19 @@ public interface SeatDao extends JpaRepository<Seat, SeatId> {
 
 	}
 	
-//	@Lock(LockModeType.PESSIMISTIC_WRITE) 這個鎖定方式只能用在nativeQuery = false
-//	@Transactional
-//	@Modifying
-//	@Query(value = "select * from Seat where (num = :num) and (area = :area) and (buy_num is null) LIMIT :buyPieces FOR UPDATE", nativeQuery = true)
-//	public List<Seat> getTickets(@Param("num")int num,@Param("area")String area,@Param("buyPieces")int buyPieces);
+
+
+//	@Query(value = "select * from Seat as seat join Sessions as sessions on seat.num = sessions.num where (seat.num = :num) and (seat.area = :area) and (seat.buy_num is null) LIMIT :buyPieces")
+	@Query("select new com.example.ticketbackend.vo.TicketJoinVo(S1.num,S1.area,S1.seatNum,S1.price,S1.buyNum,S1.version,S2.commodityCodename,S2.startSellDateTime,S2.endSellDateTime) "
+			+ " from Seat as S1 join Sessions as S2 on S1.num = S2.num "
+			+ " where (S1.num = :num) and (S1.area = :area) and (S1.buyNum is null) ")
+	public List<TicketJoinVo> getTickets(@Param("num")int num,@Param("area")String area, Pageable pageable);
 	
-	@Lock(LockModeType.PESSIMISTIC_WRITE)
-	@Transactional
-	public List<Seat> findAllTopNByNumAndAreaAndBuyNumIsNull(int num, String area, Pageable pageable);
+	@Query("select new com.example.ticketbackend.vo.GetSeatDataVo(S1.num,S1.area,S1.seatNum,S1.price,S1.buyNum,S1.version,B.buyAccount,B.payFinalDate,B.payment,S2.startSellDateTime,S2.endSellDateTime) "
+			+ " from Seat as S1 "
+			+ " inner join Buy as B on S1.buyNum = B.buyNum "
+			+ " inner join Sessions as S2 on B.sessionsNum = S2.num"
+			+ " where (S1.buyNum = :buyNum)")
+	public List<GetSeatDataVo> getSeatDataByBuyNum(@Param("buyNum")String buyNum);
 
 }

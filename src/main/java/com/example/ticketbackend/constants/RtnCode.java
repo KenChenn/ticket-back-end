@@ -38,6 +38,10 @@ public enum RtnCode {
 	PAYMENT_DEADLINE_EXCEEDED(400,"Payment Deadline Exceeded"), //已超過付款時間
 	BUYER_ERROR(400,"Buyer Error"), //非該筆訂單購買人
 	PAYMENT_ERROR(400,"Payment Error"), //付款失敗
+	NOT_SELLING_DATE(400,"Not Selling Date"), //不在付款期間
+	ORDER_EXPIRED(400,"Order Expired"), //訂單已過期
+	NOT_CANCEL_DATE(400,"Not Cancel Date"), //不在取消下訂期間
+	CANCEL_ERROR(400,"Cancel Error"), //取消訂單失敗
 	;
 
 

@@ -14,4 +14,5 @@ public interface SeatService {
 
 	public RtnCodeRes insertSeat(String commodityCodename,LocalDateTime showDateTime,List<SeatReq> data);
 
+	public RtnCodeRes cancelOrder(String account,String buyNum);
 }
