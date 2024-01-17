@@ -19,6 +19,7 @@ CREATE TABLE `commodity` (
 
 
 
+
 CREATE TABLE `forum` (
   `id` int NOT NULL AUTO_INCREMENT,
   `commodity_codename` varchar(20) NOT NULL,
@@ -30,16 +31,18 @@ CREATE TABLE `forum` (
 
 
 
-CREATE TABLE `order` (
-  `order_num` int NOT NULL,
+
+CREATE TABLE `buy` (
+  `buy_num` varchar(20) NOT NULL,
   `sessions_num` int NOT NULL,
   `buy_account` varchar(20) NOT NULL,
   `buy_date_time` datetime NOT NULL,
   `total_price` int NOT NULL,
   `payfinal_date` datetime NOT NULL,
   `is_payment` tinyint DEFAULT '0',
-  PRIMARY KEY (`order_num`)
+  PRIMARY KEY (`buy_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 
 
@@ -54,14 +57,17 @@ CREATE TABLE `organizer` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+
 CREATE TABLE `seat` (
   `num` int NOT NULL,
   `area` varchar(10) NOT NULL,
   `seat_num` int NOT NULL,
   `price` int NOT NULL,
-  `order_num` int DEFAULT NULL,
+  `buy_num` varchar(20) DEFAULT NULL,
+  `version` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`num`,`area`,`seat_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE `sessions` (
   `num` int NOT NULL AUTO_INCREMENT,
@@ -75,12 +81,14 @@ CREATE TABLE `sessions` (
 
 
 
+
 CREATE TABLE `tracking` (
   `id` int NOT NULL AUTO_INCREMENT,
   `tracker` varchar(20) NOT NULL,
   `commodity_codename` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE `user` (
   `account` varchar(20) NOT NULL,
@@ -96,6 +104,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `account_UNIQUE` (`account`),
   UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 
 
