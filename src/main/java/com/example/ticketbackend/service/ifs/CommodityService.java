@@ -26,6 +26,8 @@ public interface CommodityService {
 			String organizer);
 	
 	public GetCommodityDataRes searchCommodity(String name);
+	
+	public RtnCodeRes checkCodeName(String codename);
 }
 	
 	

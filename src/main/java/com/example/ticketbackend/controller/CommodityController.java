@@ -73,6 +73,11 @@ public class CommodityController {
 		return commodityService.searchCommodity(req.getName());
 	}
 	
+	@PostMapping(value = "api/check_codename")
+	public RtnCodeRes checkCodeName(@RequestBody CommodityReq1 req) {
+		return commodityService.checkCodeName(req.getCodename());
+	}
+	
 	@PostMapping(value = "api/add_commodity_and_session")
 	public RtnCodeRes addCommodityAndSession(@RequestBody AddCommodityReq req, HttpSession session) {
 		String attr = (String) session.getAttribute("isAdmin");

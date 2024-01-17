@@ -149,6 +149,18 @@ public class CommodityServiceImpl implements CommodityService {
 	}
 
 
+	@Override
+	public RtnCodeRes checkCodeName(String codename) {
+		if (!StringUtils.hasText(codename)) {
+			return new RtnCodeRes(RtnCode.PARAM_ERROR);
+		}
+		if(commodityDao.existsByCodename(codename)) {
+			return new RtnCodeRes(RtnCode.CODENAME_EXISTED);
+		}
+		return new RtnCodeRes(RtnCode.SUCCESSFUL);
+	}
+
+
 
 	
 	
