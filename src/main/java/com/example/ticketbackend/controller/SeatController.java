@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ticketbackend.constants.RtnCode;
 import com.example.ticketbackend.service.ifs.SeatService;
+import com.example.ticketbackend.vo.GetRemainingTicketsReq;
+import com.example.ticketbackend.vo.GetRemainingTicketsRes;
 import com.example.ticketbackend.vo.PaymenyReq;
 import com.example.ticketbackend.vo.RtnCodeRes;
 import com.example.ticketbackend.vo.SeatReq;
@@ -40,15 +42,14 @@ public class SeatController {
 		return res;
 	}
 	
-//	@PostMapping(value="api/get_")
-//	public RtnCodeRes cancelOrder(@RequestBody PaymenyReq req, HttpSession session) {
-//		String attr = (String) session.getAttribute("account");
-//		if (!StringUtils.hasText(attr)) {
-//			return new RtnCodeRes(RtnCode.PLEASE_LOGIN_FIRST);
-//		}
-//		RtnCodeRes res = seatService.cancelOrder(attr,req.getBuyNum());
-//		return res;
-//	}
+	@PostMapping(value="api/get_Remaining_Tickets")
+	public GetRemainingTicketsRes getRemainingTickets(@RequestBody GetRemainingTicketsReq req, HttpSession session) {
+		String attr = (String) session.getAttribute("account");
+		if (!StringUtils.hasText(attr)) {
+			return new GetRemainingTicketsRes(RtnCode.PLEASE_LOGIN_FIRST,null);
+		}
+		return seatService.getRemainingTickets(req.getNum());
+	}
 	
 
 }

@@ -16,6 +16,8 @@ import com.example.ticketbackend.entity.Seat;
 import com.example.ticketbackend.repository.SeatDao;
 import com.example.ticketbackend.repository.SessionsDao;
 import com.example.ticketbackend.service.ifs.SeatService;
+import com.example.ticketbackend.vo.GetRemainingTicketsRes;
+import com.example.ticketbackend.vo.GetRemainingTicketsVo;
 import com.example.ticketbackend.vo.GetSeatDataVo;
 import com.example.ticketbackend.vo.RtnCodeRes;
 import com.example.ticketbackend.vo.SeatReq;
@@ -105,5 +107,15 @@ public class SeatServiceImpl implements SeatService {
 			return new RtnCodeRes(RtnCode.CANCEL_ERROR);
 		}
 		return new RtnCodeRes(RtnCode.SUCCESSFUL);
+	}
+
+	@Override
+	public GetRemainingTicketsRes getRemainingTickets(int num) {
+		if (num <= 0) {
+			return new GetRemainingTicketsRes(RtnCode.PARAM_ERROR,null);
+		}
+		List<GetRemainingTicketsVo> data = seatDao.getRemainingTickets(num);
+		
+		return new GetRemainingTicketsRes(RtnCode.SUCCESSFUL,data);
 	}
 }

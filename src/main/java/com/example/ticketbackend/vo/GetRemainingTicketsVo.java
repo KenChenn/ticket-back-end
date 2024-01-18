@@ -2,7 +2,7 @@ package com.example.ticketbackend.vo;
 
 import java.time.LocalDateTime;
 
-public class GetSessionsDateVo2 {
+public class GetRemainingTicketsVo {
 
 	private int num;
 	
@@ -20,12 +20,12 @@ public class GetSessionsDateVo2 {
 	
 	private int price;
 
-	public GetSessionsDateVo2() {
+	public GetRemainingTicketsVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public GetSessionsDateVo2(int num, String commodityCodename, LocalDateTime showDateTime,
+	public GetRemainingTicketsVo(int num, String commodityCodename, LocalDateTime showDateTime,
 			LocalDateTime startSellDateTime, LocalDateTime endSellDateTime, String area, int remainingTicket,
 			int price) {
 		super();
@@ -39,7 +39,7 @@ public class GetSessionsDateVo2 {
 		this.price = price;
 	}
 
-	public GetSessionsDateVo2(int num, String commodityCodename, LocalDateTime showDateTime,
+	public GetRemainingTicketsVo(int num, String commodityCodename, LocalDateTime showDateTime,
 			LocalDateTime startSellDateTime, LocalDateTime endSellDateTime, String area, Long remainingTicket,
 			int price) {
 		super();
