@@ -42,6 +42,7 @@ public enum RtnCode {
 	ORDER_EXPIRED(400,"Order Expired"), //訂單已過期
 	NOT_CANCEL_DATE(400,"Not Cancel Date"), //不在取消下訂期間
 	CANCEL_ERROR(400,"Cancel Error"), //取消訂單失敗
+	SESSIONS_ALREADY_SELLED(400,"Sessions Already Selled") //場次已開賣無法刪除
 	;
 
 

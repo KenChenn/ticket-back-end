@@ -26,6 +26,14 @@ public class SeatReq {
 		this.maxSeatNum = maxSeatNum;
 		this.price = price;
 	}
+	
+	public SeatReq(int num, String area, long maxSeatNum, int price) {
+		super();
+		this.num = num;
+		this.area = area;
+		this.maxSeatNum = (int)maxSeatNum;
+		this.price = price;
+	}
 
 	public int getNum() {
 		return num;

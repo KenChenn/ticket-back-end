@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 import com.example.ticketbackend.constants.RtnCode;
 import com.example.ticketbackend.entity.User;
 import com.example.ticketbackend.repository.UserDao;
+import com.example.ticketbackend.service.ifs.MailService;
 import com.example.ticketbackend.service.ifs.UserService;
 import com.example.ticketbackend.vo.RtnCodeRes;
 import com.example.ticketbackend.vo.UserBasicDateRes;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private MailService mailService;
 
 	// 使用者登入
 	@Override
@@ -64,7 +68,7 @@ public class UserServiceImpl implements UserService {
 		}
 		try {
 			userDao.save(new User(account, encoder.encode(pwd), realname, username, email, bornDate, phone, null, false));
-
+			mailService.singUpMail(email,username);	
 		} catch (Exception e) {
 			return new RtnCodeRes(RtnCode.ACCOUNT_SIGNUP_ERROR);
 		}
