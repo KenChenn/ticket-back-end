@@ -37,6 +37,13 @@ dependencies {
  	implementation 'com.github.ben-manes.caffeine:caffeine'
 	
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	
+	//email¨ç¦¡®w
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	
+	//QRCODE¨ç¦¡®w
+    implementation 'com.google.zxing:core:3.3.3'
+	
 		
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

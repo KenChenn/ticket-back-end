@@ -1,10 +1,11 @@
 package com.example.ticketbackend.service.ifs;
 
-import java.sql.Blob;
 import java.time.LocalDate;
 
+import com.example.ticketbackend.vo.GetAllCommodity;
 import com.example.ticketbackend.vo.GetCommodityDataRes;
 import com.example.ticketbackend.vo.RtnCodeRes;
+import com.example.ticketbackend.vo.SearchCommodityDataRes;
 
 public interface CommodityService {
 
@@ -21,13 +22,17 @@ public interface CommodityService {
 	public GetCommodityDataRes getCommodityDate(String codename);
 	
 	//½s¿è¸`¥Ø
-	public  RtnCodeRes updateCommodity(String codename, String name, String introduction, Boolean entity, LocalDate startDate,
-			LocalDate endDate, String place, String keyvisualImg, String introduceImg1, String introduceImg2,
+	public  RtnCodeRes updateCommodity(String codename, String name, String introduction, Boolean entity, String place, String keyvisualImg, String introduceImg1, String introduceImg2,
 			String organizer);
 	
-	public GetCommodityDataRes searchCommodity(String name);
+	public SearchCommodityDataRes searchCommodity(String name);
 	
 	public RtnCodeRes checkCodeName(String codename);
+	
+	public RtnCodeRes deleteCommodity(String codename);
+	
+	public GetAllCommodity getAllCommodity();
+	
 }
 	
 	

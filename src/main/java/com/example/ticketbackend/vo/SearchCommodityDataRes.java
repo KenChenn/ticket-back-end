@@ -5,42 +5,29 @@ import java.util.List;
 import com.example.ticketbackend.constants.RtnCode;
 import com.example.ticketbackend.entity.Commodity;
 
-public class GetCommodityDataRes extends RtnCodeRes{
+public class SearchCommodityDataRes extends RtnCodeRes{
 
-//	private Commodity commodity;
-	
-	private Commodity commodityList;
+	private List<Commodity> commodityList;
 
-	public GetCommodityDataRes() {
+	public SearchCommodityDataRes() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	public GetCommodityDataRes(RtnCode rtncode,Commodity commodityList) {
+	public SearchCommodityDataRes(RtnCode rtncode,List<Commodity> commodityList) {
 		super(rtncode);
 		this.commodityList = commodityList;
 	}
 
-
-
-	public Commodity getCommodityList() {
+	public List<Commodity> getCommodityList() {
 		return commodityList;
 	}
 
-	public void setCommodityList(Commodity commodityList) {
+	public void setCommodityList(List<Commodity> commodityList) {
 		this.commodityList = commodityList;
 	}
-
-
-
-
-
-
-
-
 	
-
-
+	
+	
 	
 }

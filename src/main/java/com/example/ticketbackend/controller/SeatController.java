@@ -40,5 +40,15 @@ public class SeatController {
 		return res;
 	}
 	
+//	@PostMapping(value="api/get_")
+//	public RtnCodeRes cancelOrder(@RequestBody PaymenyReq req, HttpSession session) {
+//		String attr = (String) session.getAttribute("account");
+//		if (!StringUtils.hasText(attr)) {
+//			return new RtnCodeRes(RtnCode.PLEASE_LOGIN_FIRST);
+//		}
+//		RtnCodeRes res = seatService.cancelOrder(attr,req.getBuyNum());
+//		return res;
+//	}
+	
 
 }
