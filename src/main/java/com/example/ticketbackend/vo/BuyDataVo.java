@@ -24,6 +24,8 @@ public class BuyDataVo {
 	
 	private LocalDateTime showDateTime;
 	
+	private LocalDateTime startSellDateTime;
+	
 	private LocalDateTime endSellDateTime;
 	
 //	-----commodity table-----
@@ -41,11 +43,9 @@ public class BuyDataVo {
 		// TODO Auto-generated constructor stub
 	}
 
-
-	
 	public BuyDataVo(String buyNum, int sessionsNum, LocalDateTime payFinalDate, boolean payment,
-			String commodityCodename, LocalDateTime showDateTime, LocalDateTime endSellDateTime, String name,
-			String place, String keyvisualImg, List<Seat> seatData) {
+			String commodityCodename, LocalDateTime showDateTime, LocalDateTime startSellDateTime,
+			LocalDateTime endSellDateTime, String name, String place, String keyvisualImg, List<Seat> seatData) {
 		super();
 		this.buyNum = buyNum;
 		this.sessionsNum = sessionsNum;
@@ -53,18 +53,17 @@ public class BuyDataVo {
 		this.payment = payment;
 		this.commodityCodename = commodityCodename;
 		this.showDateTime = showDateTime;
+		this.startSellDateTime = startSellDateTime;
 		this.endSellDateTime = endSellDateTime;
 		this.name = name;
 		this.place = place;
 		this.keyvisualImg = keyvisualImg;
 		this.seatData = seatData;
 	}
-
-
-
+	
 	public BuyDataVo(String buyNum, int sessionsNum, LocalDateTime payFinalDate, boolean payment,
-			String commodityCodename, LocalDateTime showDateTime, LocalDateTime endSellDateTime, String name,
-			String place, String keyvisualImg) {
+			String commodityCodename, LocalDateTime showDateTime, LocalDateTime startSellDateTime,
+			LocalDateTime endSellDateTime, String name, String place, String keyvisualImg) {
 		super();
 		this.buyNum = buyNum;
 		this.sessionsNum = sessionsNum;
@@ -72,6 +71,7 @@ public class BuyDataVo {
 		this.payment = payment;
 		this.commodityCodename = commodityCodename;
 		this.showDateTime = showDateTime;
+		this.startSellDateTime = startSellDateTime;
 		this.endSellDateTime = endSellDateTime;
 		this.name = name;
 		this.place = place;
@@ -126,6 +126,14 @@ public class BuyDataVo {
 		this.showDateTime = showDateTime;
 	}
 
+	public LocalDateTime getStartSellDateTime() {
+		return startSellDateTime;
+	}
+
+	public void setStartSellDateTime(LocalDateTime startSellDateTime) {
+		this.startSellDateTime = startSellDateTime;
+	}
+
 	public LocalDateTime getEndSellDateTime() {
 		return endSellDateTime;
 	}
@@ -165,6 +173,11 @@ public class BuyDataVo {
 	public void setSeatData(List<Seat> seatData) {
 		this.seatData = seatData;
 	}
+
+
+
+
+	
 
 	
 
