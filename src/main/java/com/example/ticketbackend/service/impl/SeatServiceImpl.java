@@ -8,6 +8,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -117,5 +118,12 @@ public class SeatServiceImpl implements SeatService {
 		List<GetRemainingTicketsVo> data = seatDao.getRemainingTickets(num);
 		
 		return new GetRemainingTicketsRes(RtnCode.SUCCESSFUL,data);
+	}
+	
+	@Scheduled(cron="0 0/3 * * * ?")
+//	@Scheduled(cron = "* * * * * *")
+	public void checkPayment() {
+		System.out.println(LocalDateTime.now().toString()+"_排程啟動，檢查是否繳費");
+		seatDao.checkPayment();
 	}
 }

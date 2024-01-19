@@ -10,6 +10,6 @@ public interface BuyService {
 	public RtnCodeRes payment(String buyNum,String account);
 	
 	public GetOrderListRes getOrderList(String account);
-	
+		
 
 }

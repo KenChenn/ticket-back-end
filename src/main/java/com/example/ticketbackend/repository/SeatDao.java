@@ -94,5 +94,12 @@ public interface SeatDao extends JpaRepository<Seat, SeatId> {
 			+ " and S2.buyNum is null "
 			+ " group by S2.area,S2.price,S1.num order by price desc")
 	public List<GetRemainingTicketsVo> getRemainingTickets(@Param("num")int num);
+	
+	@Transactional
+	@Modifying
+	@Query("update Seat as S set S.buyNum = null "
+			+ " where S.buyNum "
+			+ " in (select B.buyNum from Buy as B where (B.payment = false) and (B.payFinalDate < now()))")
+	public void checkPayment();
 
 }

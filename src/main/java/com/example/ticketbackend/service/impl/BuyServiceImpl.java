@@ -9,6 +9,8 @@ import java.util.UUID;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -23,6 +25,7 @@ import com.example.ticketbackend.vo.GetOrderListRes;
 import com.example.ticketbackend.vo.RtnCodeRes;
 import com.example.ticketbackend.vo.TicketJoinVo;
 
+@EnableScheduling
 @Service
 public class BuyServiceImpl implements BuyService {
 
@@ -117,5 +120,6 @@ public class BuyServiceImpl implements BuyService {
 		List<BuyDataVo> data = buyDao.getOrderList(account);
 		return new GetOrderListRes(RtnCode.SUCCESSFUL,data);
 	}
+	
 
 }
