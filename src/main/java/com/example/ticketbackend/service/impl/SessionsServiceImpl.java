@@ -21,6 +21,7 @@ import com.example.ticketbackend.vo.GetUpdateCommodityDataRes;
 import com.example.ticketbackend.vo.RtnCodeRes;
 import com.example.ticketbackend.vo.SeatReq;
 import com.example.ticketbackend.vo.SessionReq;
+import com.example.ticketbackend.vo.UpdateSessionReq;
 
 @Service
 public class SessionsServiceImpl implements SessionsService {
@@ -61,6 +62,16 @@ public class SessionsServiceImpl implements SessionsService {
 			}
 
 		}
+		return new RtnCodeRes(RtnCode.DATA_CHECK_SUCCESSFUL);
+	}
+	
+	
+	@Override
+	public RtnCodeRes updateSessionAndSeatDataCheck(String codeName, List<UpdateSessionReq> data) {
+		
+		
+		
+		
 		return new RtnCodeRes(RtnCode.DATA_CHECK_SUCCESSFUL);
 	}
 
@@ -141,6 +152,13 @@ public class SessionsServiceImpl implements SessionsService {
 		}
 		List<Sessions> data = sessionsDao.findByCommodityCodenameOrderByShowDateTime(codeName);
 		return new GetSessionsDataRes(RtnCode.SUCCESSFUL,data);
+	}
+
+
+	@Override
+	public RtnCodeRes udpateCommodityAndSeat(String codeName, List<UpdateSessionReq> data) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

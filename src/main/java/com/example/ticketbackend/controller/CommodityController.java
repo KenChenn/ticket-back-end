@@ -1,7 +1,5 @@
 package com.example.ticketbackend.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ticketbackend.constants.RtnCode;
-import com.example.ticketbackend.entity.Commodity;
 import com.example.ticketbackend.service.ifs.CommodityService;
 import com.example.ticketbackend.service.ifs.SessionsService;
 import com.example.ticketbackend.vo.AddCommodityReq;
@@ -23,6 +20,7 @@ import com.example.ticketbackend.vo.GetAllCommodity;
 import com.example.ticketbackend.vo.GetCommodityDataRes;
 import com.example.ticketbackend.vo.RtnCodeRes;
 import com.example.ticketbackend.vo.SearchCommodityDataRes;
+import com.example.ticketbackend.vo.UpdateCommodityReq;
 
 @CrossOrigin
 @RestController
@@ -59,6 +57,31 @@ public class CommodityController {
 				req.isEnity(), req.getPlace(), req.getKeyvisualImg(), req.getIntroduceImg1(),
 				req.getIntroduceImg2(), req.getOrganizer());
 		return res;
+	}
+	
+	@PostMapping(value = "api/update_commodity_and_session")
+	public RtnCodeRes updateCommodityAndSession(@RequestBody UpdateCommodityReq req, HttpSession session) {
+		String attr = (String) session.getAttribute("isAdmin");
+		if (!StringUtils.hasText(attr) || attr != "true") {
+			return new RtnCodeRes(RtnCode.PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST);
+		}
+		if(req.getId()<=0) {
+			return new RtnCodeRes(RtnCode.PARAM_ERROR);
+		}
+		RtnCodeRes commodityDataCheck = commodityService.commodityDataCheck(req.getCodeName(), req.getName(), req.getIntroduction(), req.isEntity(), req.getStartDate(), req.getEndDate(), req.getPlace(), req.getOrganizer());
+		RtnCodeRes sessionsAndSeatDataCheck = sessionsService.updateSessionAndSeatDataCheck(req.getCodeName(),req.getSessionData());
+		if(commodityDataCheck.getRtncode().getCode() !=200 || sessionsAndSeatDataCheck.getRtncode().getCode() !=200) {
+			return new RtnCodeRes(RtnCode.PARAM_ERROR);
+		}
+		RtnCodeRes udpateCommodity = commodityService.updateCommodity(req.getCodeName(), req.getName(), req.getIntroduction(), req.isEntity(), req.getPlace(), req.getKeyvisual_img(), req.getIntroduce_img1(), req.getIntroduce_img2(), req.getOrganizer());
+		if(udpateCommodity.getRtncode().getCode() !=200) {
+			return new RtnCodeRes(udpateCommodity.getRtncode());
+		}
+		RtnCodeRes udpateCommodityAndSeat = sessionsService.udpateCommodityAndSeat(req.getCodeName(),req.getSessionData());
+		if(udpateCommodity.getRtncode().getCode() !=200) {
+			return new RtnCodeRes(udpateCommodityAndSeat.getRtncode());
+		}
+		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 
 	@PostMapping(value = "api/delete_commodity")
