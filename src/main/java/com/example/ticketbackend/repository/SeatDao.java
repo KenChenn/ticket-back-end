@@ -101,5 +101,7 @@ public interface SeatDao extends JpaRepository<Seat, SeatId> {
 			+ " where S.buyNum "
 			+ " in (select B.buyNum from Buy as B where (B.payment = false) and (B.payFinalDate < now()))")
 	public void checkPayment();
+	
+	public List<Seat> findByBuyNumOrderBySeatNum(String buyNum);
 
 }

@@ -1,6 +1,9 @@
 package com.example.ticketbackend.vo;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.example.ticketbackend.entity.Seat;
 
 public class BuyDataVo {
 	
@@ -30,11 +33,34 @@ public class BuyDataVo {
 	private String place;
 	
 	private String keyvisualImg;
+	
+	private List<Seat> seatData;
 
 	public BuyDataVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+
+	
+	public BuyDataVo(String buyNum, int sessionsNum, LocalDateTime payFinalDate, boolean payment,
+			String commodityCodename, LocalDateTime showDateTime, LocalDateTime endSellDateTime, String name,
+			String place, String keyvisualImg, List<Seat> seatData) {
+		super();
+		this.buyNum = buyNum;
+		this.sessionsNum = sessionsNum;
+		this.payFinalDate = payFinalDate;
+		this.payment = payment;
+		this.commodityCodename = commodityCodename;
+		this.showDateTime = showDateTime;
+		this.endSellDateTime = endSellDateTime;
+		this.name = name;
+		this.place = place;
+		this.keyvisualImg = keyvisualImg;
+		this.seatData = seatData;
+	}
+
+
 
 	public BuyDataVo(String buyNum, int sessionsNum, LocalDateTime payFinalDate, boolean payment,
 			String commodityCodename, LocalDateTime showDateTime, LocalDateTime endSellDateTime, String name,
@@ -130,6 +156,14 @@ public class BuyDataVo {
 
 	public void setKeyvisualImg(String keyvisualImg) {
 		this.keyvisualImg = keyvisualImg;
+	}
+
+	public List<Seat> getSeatData() {
+		return seatData;
+	}
+
+	public void setSeatData(List<Seat> seatData) {
+		this.seatData = seatData;
 	}
 
 	

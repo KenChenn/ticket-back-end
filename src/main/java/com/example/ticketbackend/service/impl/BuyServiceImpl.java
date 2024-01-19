@@ -118,6 +118,13 @@ public class BuyServiceImpl implements BuyService {
 			return new GetOrderListRes(RtnCode.PARAM_ERROR,null);
 		}
 		List<BuyDataVo> data = buyDao.getOrderList(account);
+		if(data.size()<=0) {
+			return new GetOrderListRes(RtnCode.SUCCESSFUL,null);
+		}
+		for(int i =0;i<data.size();i++) {
+			List<Seat> seatData = seatDao.findByBuyNumOrderBySeatNum(data.get(i).getBuyNum());
+			data.get(i).setSeatData(seatData);
+		}
 		return new GetOrderListRes(RtnCode.SUCCESSFUL,data);
 	}
 	
