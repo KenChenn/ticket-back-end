@@ -21,6 +21,6 @@ public interface BuyDao extends JpaRepository<Buy, String> {
 	@Query("select new com.example.ticketbackend.vo.BuyDataVo(B.buyNum,B.sessionsNum,B.payFinalDate,B.payment,S.commodityCodename,S.showDateTime,S.endSellDateTime,C.name,C.place,C.keyvisualImg) "
 			+ " from Buy as B " + " inner join Sessions as S on B.sessionsNum = S.num"
 			+ " inner join Commodity as C on S.commodityCodename = C.codename"
-			+ " where (B.buyAccount = :account) and (S.showDateTime > now())")
+			+ " where (B.buyAccount = :account) and (S.showDateTime > now()) order by S.showDateTime")
 	public List<BuyDataVo> getOrderList(@Param("account") String account);
 }
