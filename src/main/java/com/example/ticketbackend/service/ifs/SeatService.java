@@ -18,5 +18,6 @@ public interface SeatService {
 	
 	public GetRemainingTicketsRes getRemainingTickets(int num);
 	
+	public RtnCodeRes updateSeat(String commodityCodename,LocalDateTime showDateTime,List<SeatReq> data);
 
 }

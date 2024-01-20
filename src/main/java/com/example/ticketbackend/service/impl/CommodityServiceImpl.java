@@ -83,49 +83,49 @@ public class CommodityServiceImpl implements CommodityService {
 		return new GetCommodityDataRes(RtnCode.SUCCESSFUL, commodity);
 	}
 
-	@Override
-	public RtnCodeRes updateCommodity(String codename, String name, String introduction, Boolean entity,
-			 String place, String keyvisualImg, String introduceImg1,
-			String introduceImg2, String organizer) {
-		if (!StringUtils.hasText(codename) || !StringUtils.hasText(name) || !StringUtils.hasText(introduction)
-				|| !StringUtils.hasText(place) || !StringUtils.hasText(organizer) || entity == null) {
-			return new RtnCodeRes(RtnCode.PARAM_ERROR);
-		}
-		Commodity commodity = commodityDao.findByCodename(codename);
-		if (commodity == null) {
-			return new RtnCodeRes(RtnCode.DATA_NOT_FOUND);
-		}
-		if(!name.equals(commodity.getName())) {
-			commodity.setName(name);
-		}
-		if(!introduction.equals(commodity.getIntroduction())) {
-			commodity.setIntroduction(introduction);
-		}
-		if(entity != commodity.isEntity()) {
-			commodity.setEntity(entity);
-		}
-		if(!place.equals(commodity.getPlace())) {
-			commodity.setPlace(place);
-		}
-		if(keyvisualImg != null && !keyvisualImg.equals(commodity.getKeyvisualImg())) {
-			commodity.setKeyvisualImg(keyvisualImg);
-		}
-		if(introduceImg1 != null && !introduceImg1.equals(commodity.getIntroduceImg1())) {
-			commodity.setIntroduceImg1(introduceImg1);
-		}
-		if(introduceImg2 != null && !introduceImg2.equals(commodity.getIntroduceImg2())) {
-			commodity.setIntroduceImg2(introduceImg2);
-		}
-		if(!organizer.equals(commodity.getOrganizer())) {
-			commodity.setOrganizer(organizer);
-		}
-		try {
-			commodityDao.save(commodity);
-		} catch (Exception e) {
-			return new RtnCodeRes(RtnCode.COMMODITY_UPDATE_ERROR);
-		}
-		return new RtnCodeRes(RtnCode.SUCCESSFUL);
-	}
+//	@Override
+//	public RtnCodeRes updateCommodity(String codename, String name, String introduction, Boolean entity,
+//			 String place, String keyvisualImg, String introduceImg1,
+//			String introduceImg2, String organizer) {
+//		if (!StringUtils.hasText(codename) || !StringUtils.hasText(name) || !StringUtils.hasText(introduction)
+//				|| !StringUtils.hasText(place) || !StringUtils.hasText(organizer) || entity == null) {
+//			return new RtnCodeRes(RtnCode.PARAM_ERROR);
+//		}
+//		Commodity commodity = commodityDao.findByCodename(codename);
+//		if (commodity == null) {
+//			return new RtnCodeRes(RtnCode.DATA_NOT_FOUND);
+//		}
+//		if(!name.equals(commodity.getName())) {
+//			commodity.setName(name);
+//		}
+//		if(!introduction.equals(commodity.getIntroduction())) {
+//			commodity.setIntroduction(introduction);
+//		}
+//		if(entity != commodity.isEntity()) {
+//			commodity.setEntity(entity);
+//		}
+//		if(!place.equals(commodity.getPlace())) {
+//			commodity.setPlace(place);
+//		}
+//		if(keyvisualImg != null && !keyvisualImg.equals(commodity.getKeyvisualImg())) {
+//			commodity.setKeyvisualImg(keyvisualImg);
+//		}
+//		if(introduceImg1 != null && !introduceImg1.equals(commodity.getIntroduceImg1())) {
+//			commodity.setIntroduceImg1(introduceImg1);
+//		}
+//		if(introduceImg2 != null && !introduceImg2.equals(commodity.getIntroduceImg2())) {
+//			commodity.setIntroduceImg2(introduceImg2);
+//		}
+//		if(!organizer.equals(commodity.getOrganizer())) {
+//			commodity.setOrganizer(organizer);
+//		}
+//		try {
+//			commodityDao.save(commodity);
+//		} catch (Exception e) {
+//			return new RtnCodeRes(RtnCode.COMMODITY_UPDATE_ERROR);
+//		}
+//		return new RtnCodeRes(RtnCode.SUCCESSFUL);
+//	}
 
 
 	@Override
@@ -176,6 +176,56 @@ public class CommodityServiceImpl implements CommodityService {
 	public GetAllCommodity getAllCommodity() {
 		List<Commodity> data = commodityDao.getAllCommodity();
 		return new GetAllCommodity(RtnCode.SUCCESSFUL,data);
+	}
+
+	@Override
+	public RtnCodeRes updateCommodity(String codename, String name, String introduction, Boolean entity,
+			LocalDate startDate, LocalDate endDate, String place, String keyvisualImg, String introduceImg1,
+			String introduceImg2, String organizer) {
+		if (!StringUtils.hasText(codename) || !StringUtils.hasText(name) || !StringUtils.hasText(introduction)
+				|| !StringUtils.hasText(place) || !StringUtils.hasText(organizer) || entity == null) {
+			return new RtnCodeRes(RtnCode.PARAM_ERROR);
+		}
+		Commodity commodity = commodityDao.findByCodename(codename);
+		if (commodity == null) {
+			return new RtnCodeRes(RtnCode.DATA_NOT_FOUND);
+		}
+		if(!name.equals(commodity.getName())) {
+			commodity.setName(name);
+		}
+		if(!introduction.equals(commodity.getIntroduction())) {
+			commodity.setIntroduction(introduction);
+		}
+		if(entity != commodity.isEntity()) {
+			commodity.setEntity(entity);
+		}
+		if(!startDate.equals(commodity.getStartDate())) {
+			commodity.setStartDate(startDate);
+		}
+		if(!endDate.equals(commodity.getEndDate())) {
+			commodity.setEndDate(endDate);
+		}
+		if(!place.equals(commodity.getPlace())) {
+			commodity.setPlace(place);
+		}
+		if(keyvisualImg != null && !keyvisualImg.equals(commodity.getKeyvisualImg())) {
+			commodity.setKeyvisualImg(keyvisualImg);
+		}
+		if(introduceImg1 != null && !introduceImg1.equals(commodity.getIntroduceImg1())) {
+			commodity.setIntroduceImg1(introduceImg1);
+		}
+		if(introduceImg2 != null && !introduceImg2.equals(commodity.getIntroduceImg2())) {
+			commodity.setIntroduceImg2(introduceImg2);
+		}
+		if(!organizer.equals(commodity.getOrganizer())) {
+			commodity.setOrganizer(organizer);
+		}
+		try {
+			commodityDao.save(commodity);
+		} catch (Exception e) {
+			return new RtnCodeRes(RtnCode.COMMODITY_UPDATE_ERROR);
+		}
+		return new RtnCodeRes(RtnCode.SUCCESSFUL);	
 	}
 
 }

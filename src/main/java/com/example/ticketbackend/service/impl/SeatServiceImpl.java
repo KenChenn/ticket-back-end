@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 
 import com.example.ticketbackend.constants.RtnCode;
 import com.example.ticketbackend.entity.Seat;
+import com.example.ticketbackend.entity.Sessions;
 import com.example.ticketbackend.repository.SeatDao;
 import com.example.ticketbackend.repository.SessionsDao;
 import com.example.ticketbackend.service.ifs.SeatService;
@@ -56,6 +57,30 @@ public class SeatServiceImpl implements SeatService {
 
 		}
 		return new RtnCodeRes(RtnCode.SUCCESSFUL);
+	}
+	
+	@Override
+	public RtnCodeRes updateSeat(String commodityCodename, LocalDateTime showDateTime, List<SeatReq> data) {
+		Sessions session = sessionsDao.getSessionDataByCodeNameAndShowDateTime(commodityCodename, showDateTime);
+		if (session.getNum() <= 0) {
+			return new RtnCodeRes(RtnCode.SEAT_ADD_ERROR);
+		}
+		seatDao.deleteSeatByNum(session.getNum());
+		List<Seat> updateSeatData = new ArrayList<Seat>();
+		for (SeatReq item : data) {
+			for (int i = 1; i <= item.getMaxSeatNum(); i++) {
+				// 節目編號、區域名稱、座位號碼、區域價錢
+				updateSeatData.add(new Seat(session.getNum(), item.getArea(), i, item.getPrice()));
+			}
+		}
+		Connection connection = null;
+		try {
+			connection = dataSource.getConnection();
+			seatDao.insertSeat(connection, updateSeatData);
+		} catch (Exception e) {
+
+		}
+		return new RtnCodeRes(RtnCode.SUCCESSFUL);	
 	}
 
 	@Override
@@ -126,4 +151,5 @@ public class SeatServiceImpl implements SeatService {
 		System.out.println(LocalDateTime.now().toString()+"_排程啟動，檢查是否繳費");
 		seatDao.checkPayment();
 	}
+
 }

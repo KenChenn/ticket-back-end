@@ -68,10 +68,10 @@ public class UserServiceImpl implements UserService {
 		}
 		try {
 			userDao.save(new User(account, encoder.encode(pwd), realname, username, email, bornDate, phone, null, false));
-			mailService.singUpMail(email,username);	
 		} catch (Exception e) {
 			return new RtnCodeRes(RtnCode.ACCOUNT_SIGNUP_ERROR);
 		}
+		mailService.singUpMail(email,username);	
 		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 

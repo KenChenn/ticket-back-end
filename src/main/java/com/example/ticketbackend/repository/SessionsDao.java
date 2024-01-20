@@ -19,7 +19,14 @@ public interface SessionsDao extends JpaRepository<Sessions, Integer>{
 	@Query(value = "select * from Sessions where (commodity_codename = :codename) and (show_datetime = :showDateTime)",nativeQuery = true)
 	public int getSessionNum(@Param("codename") String codename,@Param("showDateTime") LocalDateTime showDateTime);
 	
+	@Query(value = "select * from Sessions where (commodity_codename = :codename) and (show_datetime = :showDateTime)",nativeQuery = true)
+	public Sessions getSessionDataByCodeNameAndShowDateTime(@Param("codename") String codename,@Param("showDateTime") LocalDateTime showDateTime);
+	
 	public List<Sessions> findByCommodityCodenameOrderByShowDateTime(String codeName);
+	
+	public List<Sessions> findByCommodityCodenameOrderByStartSellDateTime(String codeName);
+	
+	public Sessions findByCommodityCodenameAndNum(String codeName,int num);
 	
 	@Transactional
 	@Modifying

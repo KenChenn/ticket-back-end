@@ -22,7 +22,8 @@ public interface CommodityService {
 	public GetCommodityDataRes getCommodityDate(String codename);
 	
 	//½s¿è¸`¥Ø
-	public  RtnCodeRes updateCommodity(String codename, String name, String introduction, Boolean entity, String place, String keyvisualImg, String introduceImg1, String introduceImg2,
+	public  RtnCodeRes updateCommodity(String codename, String name, String introduction, Boolean entity, LocalDate startDate,
+			LocalDate endDate,String place, String keyvisualImg, String introduceImg1, String introduceImg2,
 			String organizer);
 	
 	public SearchCommodityDataRes searchCommodity(String name);
