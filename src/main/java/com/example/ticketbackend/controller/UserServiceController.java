@@ -2,6 +2,8 @@ package com.example.ticketbackend.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,10 +50,13 @@ public class UserServiceController {
 
 	// 登出
 	@GetMapping(value = "api/logout")
-	public RtnCodeRes logout(HttpSession session) {
+	public RtnCodeRes logout(HttpSession session,HttpServletResponse response) {
 		System.out.println(session.getAttribute("account") + "登出了");
 		// 讓session失效
 		session.invalidate();
+//		Cookie cookie = new Cookie("JSESSIONID", "");
+//		 cookie.setMaxAge(0);
+//		 response.addCookie(cookie);
 		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 
