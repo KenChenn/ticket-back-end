@@ -93,6 +93,14 @@ public class Commodity {
 		this.introduceImg2 = introduceImg2;
 		this.organizer = organizer;
 	}
+	
+	
+
+	public int getId() {
+		return id;
+	}
+
+
 
 	public String getCodename() {
 		return codename;

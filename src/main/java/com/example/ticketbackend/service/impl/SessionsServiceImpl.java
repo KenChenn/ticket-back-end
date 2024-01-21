@@ -16,11 +16,11 @@ import com.example.ticketbackend.repository.SeatDao;
 import com.example.ticketbackend.repository.SessionsDao;
 import com.example.ticketbackend.service.ifs.SeatService;
 import com.example.ticketbackend.service.ifs.SessionsService;
-import com.example.ticketbackend.vo.AddCommodityReq;
 import com.example.ticketbackend.vo.GetUpdateCommodityDataRes;
 import com.example.ticketbackend.vo.RtnCodeRes;
 import com.example.ticketbackend.vo.SeatReq;
 import com.example.ticketbackend.vo.SessionReq;
+import com.example.ticketbackend.vo.UpdateCommodityReq;
 import com.example.ticketbackend.vo.UpdateSessionReq;
 
 @Service
@@ -137,7 +137,8 @@ public class SessionsServiceImpl implements SessionsService {
 		if(commodity == null) {
 			return new GetUpdateCommodityDataRes(RtnCode.DATA_NOT_FOUND,null);
 		}
-		AddCommodityReq sendData = new AddCommodityReq();
+		UpdateCommodityReq sendData = new UpdateCommodityReq();
+		sendData.setId(commodity.getId());
 		sendData.setCodeName(commodity.getCodename());
 		sendData.setName(commodity.getName());
 		sendData.setIntroduction(commodity.getIntroduction());
@@ -154,9 +155,10 @@ public class SessionsServiceImpl implements SessionsService {
 		if(sessionsData.size()<=0) {
 			return new GetUpdateCommodityDataRes(RtnCode.DATA_NOT_FOUND,null);
 		}
-		List<SessionReq> sessionReqs = new ArrayList<SessionReq>();
+		List<UpdateSessionReq> updateSessionReq = new ArrayList<UpdateSessionReq>();
 		for(int i=0;i<sessionsData.size();i++) {
-			SessionReq s = new SessionReq();
+			UpdateSessionReq s = new UpdateSessionReq();
+			s.setNum(sessionsData.get(i).getNum());
 			s.setCommodity_codename(sessionsData.get(i).getCommodityCodename());
 			s.setShowDateTime(sessionsData.get(i).getShowDateTime());
 			s.setStartSellDateTime(sessionsData.get(i).getStartSellDateTime());
@@ -166,9 +168,9 @@ public class SessionsServiceImpl implements SessionsService {
 				return new GetUpdateCommodityDataRes(RtnCode.DATA_NOT_FOUND,null);
 			}
 			s.setSeatData(seatReqs);
-			sessionReqs.add(s);
+			updateSessionReq.add(s);
 		}
-		sendData.setSessionData(sessionReqs);
+		sendData.setSessionData(updateSessionReq);
 		return new GetUpdateCommodityDataRes(RtnCode.SUCCESSFUL,sendData);
 	}
 

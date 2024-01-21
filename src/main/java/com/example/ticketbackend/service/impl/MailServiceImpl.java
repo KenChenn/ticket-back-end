@@ -1,10 +1,16 @@
 package com.example.ticketbackend.service.impl;
 
-import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.example.ticketbackend.service.ifs.MailService;
@@ -30,6 +36,9 @@ public class MailServiceImpl implements MailService{
 	@Override
 	public void singUpMail(String receivers, String username) {
 		SimpleMailMessage message = new SimpleMailMessage();
+		String mailAddress = System.getProperty("SMTP_USERNAME");
+		String mailName = "樂狗購票網<" + mailAddress + ">";
+		message.setFrom(mailName);
 		message.setTo(receivers);
 		message.setSubject("註冊成功");
 		message.setText(username +"會員，您好:\n"
@@ -38,6 +47,31 @@ public class MailServiceImpl implements MailService{
 		
 	}
 
+	
+	@Override
+	public void ticketSend(String receivers, String username,String orderNum, List<ByteArrayResource>  ticketList) {
+		MimeMessage mimeMessage = mailSender.createMimeMessage();
+		String mailAddress = System.getProperty("SMTP_USERNAME");
+		String mailName = "樂狗購票網<" + mailAddress + ">";
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+			mimeMessage.setFrom(mailName);
+			helper.setTo(receivers);
+			helper.setSubject("訂單編號:" + orderNum + "，入場門票已送達");
+			helper.setText("親愛的" + username + "會員，您好:\n "
+					+ " 您本次購買的門票已送達，謝謝您的支持"
+					+ " 歡迎再次使用樂狗購票網");
+			for (int i =0; i<ticketList.size();i++) {
+				int j = i+1;
+				helper.addAttachment("Ticket_" + orderNum+"_" + j +".png", ticketList.get(i));
+			}
+			mailSender.send(mimeMessage);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 
 	
 	

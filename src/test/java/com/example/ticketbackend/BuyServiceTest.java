@@ -1,5 +1,6 @@
 package com.example.ticketbackend;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -7,9 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.ticketbackend.entity.Seat;
+import com.example.ticketbackend.repository.BuyDao;
 import com.example.ticketbackend.repository.SeatDao;
 import com.example.ticketbackend.service.ifs.BuyService;
+import com.example.ticketbackend.vo.CreateTicketVo;
 
 @SpringBootTest
 public class BuyServiceTest {
@@ -18,7 +20,9 @@ public class BuyServiceTest {
 	
 	@Autowired SeatDao seatDao;
 	
-	@Test
+	@Autowired BuyDao buyDao;
+	
+	@Test 
 	public void uuidTest() {
 
 		int num =15;
@@ -38,17 +42,9 @@ public class BuyServiceTest {
 	
 	@Test
 	public void getTickets() {
-		buyService.buy(18, "A05", "1F", 4);
-//		Seat test = new Seat();
-//		test.setNum(18);
-//		test.setArea("1F");
-//		test.setNum(18);
-//		test.setPrice(3500);
-//		try {
-//			seatDao.save(test);
-//
-//		} catch (Exception e) {
-//			System.out.println("³QÂê©w¤F");
+//		buyService.buy(18, "A05", "1F", 4);
+		buyService.payment("123", "A01");
+
 //		}
 	}
 }

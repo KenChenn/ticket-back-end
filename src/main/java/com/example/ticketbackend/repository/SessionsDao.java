@@ -25,7 +25,7 @@ public interface SessionsDao extends JpaRepository<Sessions, Integer>{
 	public List<Sessions> findByCommodityCodenameOrderByShowDateTime(String codeName);
 	
 	public List<Sessions> findByCommodityCodenameOrderByStartSellDateTime(String codeName);
-	
+		
 	public Sessions findByCommodityCodenameAndNum(String codeName,int num);
 	
 	@Transactional

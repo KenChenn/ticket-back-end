@@ -43,8 +43,11 @@ dependencies {
 	
 	//QRCODE¨ç¦¡®w
     implementation 'com.google.zxing:core:3.3.3'
-	
-		
+    implementation 'com.google.zxing:javase:3.3.3'
+    
+	 //JSON
+    implementation 'org.json:json:20231013'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
