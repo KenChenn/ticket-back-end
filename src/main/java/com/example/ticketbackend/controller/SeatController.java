@@ -44,10 +44,6 @@ public class SeatController {
 	
 	@PostMapping(value="api/get_Remaining_Tickets")
 	public GetRemainingTicketsRes getRemainingTickets(@RequestBody GetRemainingTicketsReq req, HttpSession session) {
-		String attr = (String) session.getAttribute("account");
-		if (!StringUtils.hasText(attr)) {
-			return new GetRemainingTicketsRes(RtnCode.PLEASE_LOGIN_FIRST,null);
-		}
 		return seatService.getRemainingTickets(req.getNum());
 	}
 	
