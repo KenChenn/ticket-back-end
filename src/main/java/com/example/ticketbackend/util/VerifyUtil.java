@@ -8,7 +8,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class VerityUtil {
+
+public class VerifyUtil {
 	
 	//≥]©w≈Á√“ΩX¶r•¿
 	private static final char[] chars = {
@@ -32,7 +33,7 @@ public class VerityUtil {
 	
 	private final Color backgroundColor;
 	
-	private VerityUtil(Builder builder) {
+	private VerifyUtil(Builder builder) {
 		size = builder.size;
 		lines = builder.lines;
 		width = builder.width;
@@ -92,9 +93,9 @@ public class VerityUtil {
 	
 	
 	
-    public static Builder newBuilder() {
-        return new Builder();
-    }
+	 public static Builder newBuilder() {
+	        return new Builder();
+	    }
 
     public static class Builder{
     	private int size = 4;
@@ -107,45 +108,57 @@ public class VerityUtil {
 		public int getSize() {
 			return size;
 		}
-		public void setSize(int size) {
+		public Builder setSize(int size) {
 			this.size = size;
+			return this;
 		}
 		public int getLines() {
 			return lines;
 		}
-		public void setLines(int lines) {
+		public Builder setLines(int lines) {
 			this.lines = lines;
+			return this;
 		}
 		public int getWidth() {
 			return width;
 		}
-		public void setWidth(int width) {
+		public Builder setWidth(int width) {
 			this.width = width;
+			return this;
 		}
 		public int getHeight() {
 			return height;
 		}
-		public void setHeight(int height) {
+		public Builder setHeight(int height) {
 			this.height = height;
+			return this;
 		}
 		public int getFontSize() {
 			return fontSize;
 		}
-		public void setFontSize(int fontSize) {
+		public Builder setFontSize(int fontSize) {
 			this.fontSize = fontSize;
+			return this;
 		}
 		public boolean isTilt() {
 			return tilt;
 		}
-		public void setTilt(boolean tile) {
-			this.tilt = tile;
+		public Builder setTilt(boolean tilt) {
+			this.tilt = tilt;
+			return this;
 		}
 		public Color getBackgroundColor() {
 			return backgroundColor;
 		}
-		public void setBackgroundColor(Color backgroundColor) {
+		public Builder setBackgroundColor(Color backgroundColor) {
 			this.backgroundColor = backgroundColor;
+			return this;
+
 		}
+		
+        public VerifyUtil build() {
+            return new VerifyUtil(this);
+        }
     	
     	
     }

@@ -50,7 +50,7 @@ public class UserServiceController {
 
 	// 登出
 	@GetMapping(value = "api/logout")
-	public RtnCodeRes logout(HttpSession session,HttpServletResponse response) {
+	public RtnCodeRes logout(HttpSession session) {
 		System.out.println(session.getAttribute("account") + "登出了");
 		// 讓session失效
 		session.invalidate();
