@@ -33,11 +33,7 @@ public class SessionsController {
 	}
 	
 	@PostMapping(value="api/get_Sessions")
-	public GetSessionsDataRes getSessions(@RequestBody CommodityReq1 req, HttpSession session) {
-		String attr = (String) session.getAttribute("account");
-		if (!StringUtils.hasText(attr)) {
-			return new GetSessionsDataRes(RtnCode.PLEASE_LOGIN_FIRST,null);
-		}
+	public GetSessionsDataRes getSessions(@RequestBody CommodityReq1 req) {
 		return sessionsService.getSessionsData(req.getCodename());
 	}
 

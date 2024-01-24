@@ -54,7 +54,7 @@ public class CommodityController {
 			return new RtnCodeRes(RtnCode.PLEASE_LOGIN_ADMIN_ACCOUNT_FIRST);
 		}
 		RtnCodeRes res = commodityService.updateCommodity(req.getCodename(), req.getName(), req.getIntroduction(),
-				req.isEnity(), req.getPlace(), req.getKeyvisualImg(), req.getIntroduceImg1(),
+				req.isEnity(),req.getStartDate(),req.getEndDate(), req.getPlace(), req.getKeyvisualImg(), req.getIntroduceImg1(),
 				req.getIntroduceImg2(), req.getOrganizer());
 		return res;
 	}
@@ -73,7 +73,7 @@ public class CommodityController {
 		if(commodityDataCheck.getRtncode().getCode() !=200 || sessionsAndSeatDataCheck.getRtncode().getCode() !=200) {
 			return new RtnCodeRes(RtnCode.PARAM_ERROR);
 		}
-		RtnCodeRes udpateCommodity = commodityService.updateCommodity(req.getCodeName(), req.getName(), req.getIntroduction(), req.isEntity(), req.getPlace(), req.getKeyvisual_img(), req.getIntroduce_img1(), req.getIntroduce_img2(), req.getOrganizer());
+		RtnCodeRes udpateCommodity = commodityService.updateCommodity(req.getCodeName(), req.getName(), req.getIntroduction(), req.isEntity(), req.getStartDate(),req.getEndDate(),req.getPlace(), req.getKeyvisual_img(), req.getIntroduce_img1(), req.getIntroduce_img2(), req.getOrganizer());
 		if(udpateCommodity.getRtncode().getCode() !=200) {
 			return new RtnCodeRes(udpateCommodity.getRtncode());
 		}

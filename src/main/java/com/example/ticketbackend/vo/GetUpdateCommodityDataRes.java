@@ -6,24 +6,24 @@ import com.example.ticketbackend.constants.RtnCode;
 
 public class GetUpdateCommodityDataRes extends RtnCodeRes{
 
-	private AddCommodityReq data;
+	private UpdateCommodityReq data;
 
 	public GetUpdateCommodityDataRes() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public GetUpdateCommodityDataRes(RtnCode rtncode,AddCommodityReq data) {
+	public GetUpdateCommodityDataRes(RtnCode rtncode,UpdateCommodityReq data) {
 		super(rtncode);
 		this.data = data;
 
 	}
 
-	public AddCommodityReq getData() {
+	public UpdateCommodityReq getData() {
 		return data;
 	}
 
-	public void setData(AddCommodityReq data) {
+	public void setData(UpdateCommodityReq data) {
 		this.data = data;
 	}
 

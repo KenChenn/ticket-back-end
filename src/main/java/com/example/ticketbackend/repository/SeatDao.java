@@ -87,11 +87,10 @@ public interface SeatDao extends JpaRepository<Seat, SeatId> {
 	
 	
 
-	@Query("select new com.example.ticketbackend.vo.GetRemainingTicketsVo(S1.num , S1.commodityCodename , S1.showDateTime , S1.startSellDateTime , S1.endSellDateTime , S2.area ,count(S2.num) as remainingTicket , S2.price) "
+	@Query("select new com.example.ticketbackend.vo.GetRemainingTicketsVo(S1.num , S1.commodityCodename , S1.showDateTime , S1.startSellDateTime , S1.endSellDateTime , S2.area ,COALESCE(SUM(CASE WHEN S2.buyNum IS NULL THEN 1 ELSE 0 END), 0) as remainingTicket , S2.price) "
 			+ " FROM Sessions as S1 "
 			+ " inner join Seat as S2 on S1.num = S2.num"
 			+ " where (S2.num = :num)"
-			+ " and S2.buyNum is null "
 			+ " group by S2.area,S2.price,S1.num order by price desc")
 	public List<GetRemainingTicketsVo> getRemainingTickets(@Param("num")int num);
 	

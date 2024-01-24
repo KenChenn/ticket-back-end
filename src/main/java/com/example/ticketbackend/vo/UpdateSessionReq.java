@@ -32,6 +32,16 @@ public class UpdateSessionReq {
 		this.endSellDateTime = endSellDateTime;
 		this.seatData = seatData;
 	}
+	
+	public UpdateSessionReq(int num, String commodity_codename, LocalDateTime showDateTime,
+			LocalDateTime startSellDateTime, LocalDateTime endSellDateTime) {
+		super();
+		this.num = num;
+		this.commodity_codename = commodity_codename;
+		this.showDateTime = showDateTime;
+		this.startSellDateTime = startSellDateTime;
+		this.endSellDateTime = endSellDateTime;
+	}
 
 	public int getNum() {
 		return num;

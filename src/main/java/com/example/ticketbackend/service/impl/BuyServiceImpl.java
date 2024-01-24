@@ -1,29 +1,44 @@
 package com.example.ticketbackend.service.impl;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.example.ticketbackend.constants.RtnCode;
 import com.example.ticketbackend.entity.Buy;
 import com.example.ticketbackend.entity.Seat;
+import com.example.ticketbackend.entity.User;
 import com.example.ticketbackend.repository.BuyDao;
 import com.example.ticketbackend.repository.SeatDao;
+import com.example.ticketbackend.repository.UserDao;
 import com.example.ticketbackend.service.ifs.BuyService;
+import com.example.ticketbackend.service.ifs.MailService;
 import com.example.ticketbackend.vo.BuyDataVo;
+import com.example.ticketbackend.vo.CreateTicketVo;
 import com.example.ticketbackend.vo.GetOrderListRes;
 import com.example.ticketbackend.vo.RtnCodeRes;
 import com.example.ticketbackend.vo.TicketJoinVo;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.qrcode.QRCodeWriter;
+
 
 @EnableScheduling
 @Service
@@ -33,7 +48,13 @@ public class BuyServiceImpl implements BuyService {
 	SeatDao seatDao;
 	@Autowired
 	BuyDao buyDao;
+	
+	@Autowired
+	UserDao userDao;
 
+	@Autowired
+	private MailService mailService;
+	
 	@Override
 	public RtnCodeRes buy(int sessionsNum, String buyAccount, String area, int buyPieces) {
 		if (sessionsNum <= 0 || !StringUtils.hasText(buyAccount) || !StringUtils.hasText(area) || buyPieces <= 0) {
@@ -109,6 +130,12 @@ public class BuyServiceImpl implements BuyService {
 		} catch (Exception e) {
 			return new RtnCodeRes(RtnCode.PAYMENT_ERROR);
 		}
+		User userData = userDao.findByAccountAndAdminFalse(account);
+		if(userData == null) {
+			return new RtnCodeRes(RtnCode.ACCOUNT_NOT_FOUND);
+		}
+		List<ByteArrayResource> ticket = createTicket(payReady.getBuyNum()); 
+		mailService.ticketSend(userData.getEmail(), userData.getUsername(), buyNum, ticket);
 		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 
@@ -126,6 +153,35 @@ public class BuyServiceImpl implements BuyService {
 			data.get(i).setSeatData(seatData);
 		}
 		return new GetOrderListRes(RtnCode.SUCCESSFUL,data);
+	}
+	
+	//產生QR碼
+	public List<ByteArrayResource> createTicket(String buyNum) {
+		List<CreateTicketVo> data = buyDao.getCreateTicketData(buyNum);
+		if(data.size()<=0) {
+			return null;
+		}
+		List<ByteArrayResource> ticketList =  new ArrayList<ByteArrayResource>(); //票卷可能有多張，所以建立一個List裝票卷的ByteArrayResource
+		for (CreateTicketVo item : data) {
+			JSONObject ticketData = new JSONObject();  //創建QR碼內容，格式為JSON
+			ticketData.put("訂單編號", buyNum);
+			ticketData.put("姓名", item.getRealName());
+			ticketData.put("座位", item.getArea()+ "-" +item.getSeatNum());
+			Map<EncodeHintType, Object> hints = new HashMap<>();
+	        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8"); //設定編碼方式，防止亂碼
+	        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();  //建立一個字節（Byte）陣列輸出流
+	        try {
+	        	//透過Zxing Library 的方法生成QR碼，								//表示QR碼的矩陣(QR碼的內容、指定生成QR碼、寬度、高度、設定額外的配置選項)        //圖片格式  //將QR碼寫進這個輸出流
+	            MatrixToImageWriter.writeToStream(new QRCodeWriter().encode(ticketData.toString(), BarcodeFormat.QR_CODE, 300, 300, hints), "png", outputStream); 
+	        } catch (IOException |WriterException  e) { //QRCodeWriter().encode...會丟WriterException，MatrixToImageWriter.writeToStream...會丟IOException，所以要這樣寫或是寫兩個try...catch...
+	        	  e.printStackTrace();
+	        	  continue;
+			}
+	        byte[] qcBytes = outputStream.toByteArray(); //將目前輸出流的數據轉換成byte[]，這行做完以後qcBytes裡面放的是qe碼的二進制
+	        ByteArrayResource qrCodeResource = new ByteArrayResource(qcBytes); //透過ByteArrayResource class 轉成Spring方便使用的格式，例如轉換回圖片、文件等
+	        ticketList.add(qrCodeResource);
+		}
+		return ticketList;
 	}
 	
 

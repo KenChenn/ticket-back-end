@@ -43,8 +43,14 @@ dependencies {
 	
 	//QRCODE函式庫
     implementation 'com.google.zxing:core:3.3.3'
-	
-		
+    implementation 'com.google.zxing:javase:3.3.3'
+    
+	 //JSON
+    implementation 'org.json:json:20231013'
+    
+    //Redis  記憶體No-SQL資料庫
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
