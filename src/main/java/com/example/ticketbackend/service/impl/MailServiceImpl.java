@@ -59,7 +59,7 @@ public class MailServiceImpl implements MailService{
 			helper.setTo(receivers);
 			helper.setSubject("訂單編號:" + orderNum + "，入場門票已送達");
 			helper.setText("親愛的" + username + "會員，您好:\n "
-					+ " 您本次購買的門票已送達，謝謝您的支持"
+					+ " 您本次購買的門票已送達，謝謝您的支持\n"
 					+ " 歡迎再次使用樂狗購票網");
 			for (int i =0; i<ticketList.size();i++) {
 				int j = i+1;
