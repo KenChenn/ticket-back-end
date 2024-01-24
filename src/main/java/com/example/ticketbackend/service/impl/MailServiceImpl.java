@@ -37,12 +37,12 @@ public class MailServiceImpl implements MailService{
 	public void singUpMail(String receivers, String username) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		String mailAddress = System.getProperty("SMTP_USERNAME");
-		String mailName = "¼Öª¯ÁÊ²¼ºô<" + mailAddress + ">";
+		String mailName = "æ¨‚ç‹—è³¼ç¥¨ç¶²<" + mailAddress + ">";
 		message.setFrom(mailName);
 		message.setTo(receivers);
-		message.setSubject("µù¥U¦¨¥\");
-		message.setText(username +"·|­û¡A±z¦n:\n"
-				+ "Åwªïµù¥U¨Ï¥Î¼Öª¯ÁÊ²¼ºô");
+		message.setSubject("è¨»å†ŠæˆåŠŸ");
+		message.setText(username +"æœƒå“¡ï¼Œæ‚¨å¥½:\n"
+				+ " æ­¡è¿è¨»å†Šä½¿ç”¨æ¨‚ç‹—è³¼ç¥¨ç¶²");
 		mailSender.send(message);
 		
 	}
@@ -52,15 +52,15 @@ public class MailServiceImpl implements MailService{
 	public void ticketSend(String receivers, String username,String orderNum, List<ByteArrayResource>  ticketList) {
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 		String mailAddress = System.getProperty("SMTP_USERNAME");
-		String mailName = "¼Öª¯ÁÊ²¼ºô<" + mailAddress + ">";
+		String mailName = "æ¨‚ç‹—è³¼ç¥¨ç¶²<" + mailAddress + ">";
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 			mimeMessage.setFrom(mailName);
 			helper.setTo(receivers);
-			helper.setSubject("­q³æ½s¸¹:" + orderNum + "¡A¤J³õªù²¼¤w°e¹F");
-			helper.setText("¿Ë·Rªº" + username + "·|­û¡A±z¦n:\n "
-					+ " ±z¥»¦¸ÁÊ¶Rªºªù²¼¤w°e¹F¡AÁÂÁÂ±zªº¤ä«ù"
-					+ " Åwªï¦A¦¸¨Ï¥Î¼Öª¯ÁÊ²¼ºô");
+			helper.setSubject("è¨‚å–®ç·¨è™Ÿ:" + orderNum + "ï¼Œå…¥å ´é–€ç¥¨å·²é€é”");
+			helper.setText("è¦ªæ„›çš„" + username + "æœƒå“¡ï¼Œæ‚¨å¥½:\n "
+					+ " æ‚¨æœ¬æ¬¡è³¼è²·çš„é–€ç¥¨å·²é€é”ï¼Œè¬è¬æ‚¨çš„æ”¯æŒ"
+					+ " æ­¡è¿å†æ¬¡ä½¿ç”¨æ¨‚ç‹—è³¼ç¥¨ç¶²");
 			for (int i =0; i<ticketList.size();i++) {
 				int j = i+1;
 				helper.addAttachment("Ticket_" + orderNum+"_" + j +".png", ticketList.get(i));
