@@ -18,7 +18,7 @@ public interface CommodityDao extends JpaRepository<Commodity, Integer> {
 	
 	public boolean existsByCodename(String codename);
 
-	@Query(value = "select * from Commodity where (name like %:name%) and (((DATE_FORMAT(NOW(), '%Y-%m-%d') >= start_date) AND (DATE_FORMAT(NOW(), '%Y-%m-%d') <= end_date)) OR (DATE_FORMAT(NOW(), '%Y-%m-%d') <= start_date))", nativeQuery = true)
+	@Query(value = "select * from Commodity where (name like %:name%) and (((DATE_FORMAT(NOW(), '%Y-%m-%d') >= start_date) AND (DATE_FORMAT(NOW(), '%Y-%m-%d') < end_date)) OR (DATE_FORMAT(NOW(), '%Y-%m-%d') < start_date))", nativeQuery = true)
 	public List<Commodity> searchCommodity(@Param("name")String name);
 
 	@Query("select new com.example.ticketbackend.vo.GetCommodityAndSessionsVo(C.id,C.codename,S.num,S.showDateTime,S.startSellDateTime,S.endSellDateTime) "
