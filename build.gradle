@@ -50,6 +50,10 @@ dependencies {
     
     //Redis  記憶體No-SQL資料庫
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    
+    //消息隊列協議
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

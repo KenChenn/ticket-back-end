@@ -38,7 +38,6 @@ public class VerifyController {
     	Object[] objs = VerifyUtil.newBuilder().build().createImage();
     	
     	session.setAttribute("SESSION_VERIFY_CODE_" + id, objs[0]);
-    	System.out.println(id);
     	System.out.println(objs[0]);
 //    	redisTemplate.setKeySerializer(new StringRedisSerializer());
 //    	redisTemplate.setValueSerializer(new StringRedisSerializer());
