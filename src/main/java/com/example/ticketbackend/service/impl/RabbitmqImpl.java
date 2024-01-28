@@ -110,11 +110,15 @@ public class RabbitmqImpl implements RabbitmqService{
 	}
 
 	@Override
-	public RtnCodeRes sendMsg(String queueName, String message) {
-		if(!StringUtils.hasText(queueName)||!StringUtils.hasText(message)) {
+	public RtnCodeRes sendMsg(String subscribe, String message) {
+		if(!StringUtils.hasText(subscribe)||!StringUtils.hasText(message)) {
 			return new RtnCodeRes(RtnCode.PARAM_ERROR);
 		}
-		rabbitTemplate.convertAndSend(queueName, message);
+		try {
+			rabbitTemplate.convertAndSend(subscribe, message);
+		} catch (Exception e) {
+			return new RtnCodeRes(RtnCode.SEND_SUBSCRIBE_MESSAGE_ERROR);
+		}
 		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 

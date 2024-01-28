@@ -30,7 +30,7 @@ public class RabbitServiceTest {
 	}
 	@Test
 	public void sendMsg() {
-		rabbitmaService.sendMsg("日本","Hello");
+		rabbitmaService.sendMsg("commodityType.韓國","您訂閱XXX訊息");
 	}
 	
 	

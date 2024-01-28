@@ -16,8 +16,8 @@ public class Subscription {
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "username")
-	private String username;
+	@Column(name = "account")
+	private String account;
 	
 	@Column(name = "subscribe")
 	private String subscribe;
@@ -27,10 +27,10 @@ public class Subscription {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Subscription(int id, String username, String subscribe) {
+	public Subscription(int id, String account, String subscribe) {
 		super();
 		this.id = id;
-		this.username = username;
+		this.account = account;
 		this.subscribe = subscribe;
 	}
 
@@ -42,12 +42,12 @@ public class Subscription {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getAccount() {
+		return account;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
 	public String getSubscribe() {
@@ -57,6 +57,7 @@ public class Subscription {
 	public void setSubscribe(String subscribe) {
 		this.subscribe = subscribe;
 	}
+
 	
 	
 }
