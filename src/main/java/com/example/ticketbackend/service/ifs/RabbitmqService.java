@@ -14,5 +14,5 @@ public interface RabbitmqService {
 	//取得某交換器底下所有綁定的隊列
 	public List<String> getAllQueueByExchange(String exchangeName);
 	//發送消息到隊列
-	public RtnCodeRes sendMsg(String queueName,String message);
+	public RtnCodeRes sendMsg(String subscribe,String message);
 }

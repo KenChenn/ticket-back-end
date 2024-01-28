@@ -73,6 +73,24 @@ public class MailServiceImpl implements MailService{
 		
 	}
 
+
+	@Override
+	public void subscribeMail(String[] mailArray, String message) {
+		SimpleMailMessage email = new SimpleMailMessage();
+		String mailAddress = System.getProperty("SMTP_USERNAME");
+		String mailName = "樂狗購票網<" + mailAddress + ">";
+		email.setFrom(mailName);
+		email.setTo(mailArray);
+		email.setSubject("您訂閱的消息");
+		email.setText(message);
+		try {
+			mailSender.send(email);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+
 	
 	
 	

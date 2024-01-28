@@ -14,4 +14,6 @@ public interface MailService {
 	public void singUpMail(String receivers,String account);
 	
 	public void ticketSend(String receivers, String username,String orderNum, List<ByteArrayResource>  ticketList);
+
+	public void subscribeMail(String[] mailArray,String message);
 }

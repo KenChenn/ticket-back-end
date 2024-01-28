@@ -44,7 +44,12 @@ public enum RtnCode {
 	CANCEL_ERROR(400,"Cancel Error"), //取消訂單失敗
 	SESSIONS_ALREADY_SELLED(400,"Sessions Already Selled"), //場次已開賣無法刪除
 	VERIFICATION_CODE_INVALID(400,"Verification Code Invalid"), //驗證碼已過期
-	VERIFICATION_CODE_EXPIRED(400,"Verification Code Expired") //驗證碼錯誤
+	VERIFICATION_CODE_EXPIRED(400,"Verification Code Expired"), //驗證碼錯誤
+	SUBSCRIBE_ERROR(400,"Subscribe Error"), //訂閱失敗
+	ALREADY_SUBSCRIBE(400,"Already Subscribe"), //已經訂閱該項目
+	NOT_SUBSCRIBED_NOW(400,"Not Subscribed Now"), //本來就沒訂閱該項目
+	CANCEL_SUBSCRIBE_ERROR(400,"Cancel Subscribe Error"), //取消訂閱失敗
+	SEND_SUBSCRIBE_MESSAGE_ERROR(400,"Send Subscribe Message Error"), //發送訂閱失敗
 	;
 
 
