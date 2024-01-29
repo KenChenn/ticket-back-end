@@ -37,12 +37,12 @@ public class MailServiceImpl implements MailService{
 	public void singUpMail(String receivers, String username) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		String mailAddress = System.getProperty("SMTP_USERNAME");
-		String mailName = "樂狗購票網<" + mailAddress + ">";
+		String mailName = "票亮視界<" + mailAddress + ">";
 		message.setFrom(mailName);
 		message.setTo(receivers);
 		message.setSubject("註冊成功");
 		message.setText(username +"會員，您好:\n"
-				+ " 歡迎註冊使用樂狗購票網");
+				+ " 歡迎註冊使用票亮視界");
 		mailSender.send(message);
 		
 	}
@@ -52,15 +52,20 @@ public class MailServiceImpl implements MailService{
 	public void ticketSend(String receivers, String username,String orderNum, List<ByteArrayResource>  ticketList) {
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 		String mailAddress = System.getProperty("SMTP_USERNAME");
-		String mailName = "樂狗購票網<" + mailAddress + ">";
+		String mailName = "票亮視界<" + mailAddress + ">";
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 			mimeMessage.setFrom(mailName);
 			helper.setTo(receivers);
 			helper.setSubject("訂單編號:" + orderNum + "，入場門票已送達");
 			helper.setText("親愛的" + username + "會員，您好:\n "
+<<<<<<< HEAD
 					+ " 您本次購買的門票已送達，謝謝您的支持\n"
 					+ " 歡迎再次使用樂狗購票網");
+=======
+					+ " 您本次購買的門票已送達，謝謝您的支持"
+					+ " 歡迎再次使用票亮視界");
+>>>>>>> api
 			for (int i =0; i<ticketList.size();i++) {
 				int j = i+1;
 				helper.addAttachment("Ticket_" + orderNum+"_" + j +".png", ticketList.get(i));
@@ -78,7 +83,7 @@ public class MailServiceImpl implements MailService{
 	public void subscribeMail(String[] mailArray, String message) {
 		SimpleMailMessage email = new SimpleMailMessage();
 		String mailAddress = System.getProperty("SMTP_USERNAME");
-		String mailName = "樂狗購票網<" + mailAddress + ">";
+		String mailName = "票亮視界<" + mailAddress + ">";
 		email.setFrom(mailName);
 		email.setTo(mailArray);
 		email.setSubject("您訂閱的消息");

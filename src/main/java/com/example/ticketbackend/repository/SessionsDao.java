@@ -39,7 +39,7 @@ public interface SessionsDao extends JpaRepository<Sessions, Integer>{
 			+ " inner join Seat as S2 on S1.num = S2.num"
 			+ " where (S1.commodityCodename = :codeName)"
 			+ " and S2.buyNum is null "
-			+ " group by S2.area,S2.price,S1.num order by price desc")
+			+ " group by S2.area,S2.price,S1.num order by price desc ")
 	public List<GetSessionsDateVo> getSessionsData(@Param("codeName")String codeName);
 	
 	
