@@ -97,13 +97,13 @@ public class SessionsServiceImpl implements SessionsService {
 					|| session.getEndSellDateTime().isAfter(session.getShowDateTime())) {
 				return new RtnCodeRes(RtnCode.DATE_FORMAT_ERROR);
 			}
-			if(LocalDateTime.now().isAfter(session.getStartSellDateTime())) {
-				return new RtnCodeRes(RtnCode.DATE_FORMAT_ERROR);
-			}
 			Sessions s = sessionsDataMap.get(session.getNum());
 			if(s != null) {
 				//檢查到已經開賣的票卷，且場次時間與資料庫不符合的話直接回傳
 				if(LocalDateTime.now().isAfter(s.getStartSellDateTime()) && !session.getStartSellDateTime().isEqual(s.getStartSellDateTime())) {
+					return new RtnCodeRes(RtnCode.DATE_FORMAT_ERROR);
+				}
+				if(LocalDateTime.now().isAfter(s.getEndSellDateTime()) && !session.getEndSellDateTime().isEqual(s.getEndSellDateTime())) {
 					return new RtnCodeRes(RtnCode.DATE_FORMAT_ERROR);
 				}
 			}
