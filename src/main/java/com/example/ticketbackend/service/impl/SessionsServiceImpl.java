@@ -3,6 +3,9 @@ package com.example.ticketbackend.service.impl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,27 +74,38 @@ public class SessionsServiceImpl implements SessionsService {
 		if (sessionData.size() <= 0) {
 			return new RtnCodeRes(RtnCode.DATA_CHECK_ERROR);
 		}
+		List<Sessions> sessionsDataInDb = sessionsDao.findByCommodityCodenameOrderByShowDateTime(codeName);
+		if(sessionsDataInDb == null ) {
+			return new RtnCodeRes(RtnCode.SESSIONS_DATA_NOT_FOUND);
+		}
+		//.stream() => 先將List轉成流的形式，以便使用java8流式操作，
+		//.collect()=> 將流的內容收集到一個資料型態或是集合中
+		//Collectors.toMap()是.collect()底下的一個工具，將流的內容收集到map中
+		//Sessions::getNum => 這是一個方法的引用，用於提取Sessions類別的num屬性當作map的key值
+		//Function.identity() => 這是一個靜態方法的引用，返回一個函數，該函數返回其輸入參數本身當作map的value值
+		Map<Integer, Sessions> sessionsDataMap = sessionsDataInDb.stream().collect(Collectors.toMap(Sessions::getNum, Function.identity()));
 		for (UpdateSessionReq session : sessionData) {
-			if (!StringUtils.hasText(codeName) || session.getNum() <=0 || !StringUtils.hasText(session.getCommodity_codename())
+			if (!StringUtils.hasText(codeName) || !StringUtils.hasText(session.getCommodity_codename())
 					|| session.getShowDateTime() == null || session.getStartSellDateTime() == null
 					|| session.getEndSellDateTime() == null) {
 				return new RtnCodeRes(RtnCode.DATA_CHECK_ERROR);
 			}
-//			Sessions s = sessionsDao.findByCommodityCodenameAndNum(codeName, session.getNum());
-//			if(LocalDateTime.now().isAfter(s.getStartSellDateTime())) {
-//				return new RtnCodeRes(RtnCode.SESSIONS_ALREADY_SELLED);
-//			}
 			if (!session.getCommodity_codename().equals(codeName)) {
-				return new RtnCodeRes(RtnCode.DATA_CHECK_ERROR);
-			}
-//			System.out.println(LocalDateTime.now().toString());
-//			System.out.println(session.getStartSellDateTime());
-			if(LocalDateTime.now().isAfter(session.getStartSellDateTime())) {
-				return new RtnCodeRes(RtnCode.SESSIONS_ALREADY_SELLED);
+				return new RtnCodeRes(RtnCode.SESSION_CODENAME_NOT_MATCH_COMMODITY_CODENAME);
 			}
 			if (session.getStartSellDateTime().isAfter(session.getEndSellDateTime())
 					|| session.getEndSellDateTime().isAfter(session.getShowDateTime())) {
-				return new RtnCodeRes(RtnCode.DATA_CHECK_ERROR);
+				return new RtnCodeRes(RtnCode.DATE_FORMAT_ERROR);
+			}
+			if(LocalDateTime.now().isAfter(session.getStartSellDateTime())) {
+				return new RtnCodeRes(RtnCode.DATE_FORMAT_ERROR);
+			}
+			Sessions s = sessionsDataMap.get(session.getNum());
+			if(s != null) {
+				//檢查到已經開賣的票卷，且場次時間與資料庫不符合的話直接回傳
+				if(LocalDateTime.now().isAfter(s.getStartSellDateTime()) && !session.getStartSellDateTime().isEqual(s.getStartSellDateTime())) {
+					return new RtnCodeRes(RtnCode.DATE_FORMAT_ERROR);
+				}
 			}
 			RtnCodeRes seatDataCheck = seatService.seatDataCheck(session.getSeatData());
 			if (seatDataCheck.getRtncode().getCode() != 200) {
@@ -189,25 +203,19 @@ public class SessionsServiceImpl implements SessionsService {
 		if(data.size() <=0) {
 			return new RtnCodeRes(RtnCode.PARAM_ERROR);
 		}
-		if(LocalDateTime.now().isAfter(data.get(0).getStartSellDateTime())) {
-			return new RtnCodeRes(RtnCode.SESSIONS_ALREADY_SELLED);
-		}
+//		if(LocalDateTime.now().isAfter(data.get(0).getStartSellDateTime())) {
+//			return new RtnCodeRes(RtnCode.SESSIONS_ALREADY_SELLED);
+//		}
+		//移到陣列裡面去判斷 如果getStartSellDateTime()>now && getStartSellDateTime()!=原本的資料的話 就不給儲存
 		List<Sessions> updateData = new ArrayList<>();
 		for(UpdateSessionReq item : data) {
-			if(!item.getCommodity_codename().equals(codeName)) {
-				return new RtnCodeRes(RtnCode.SESSION_CODENAME_NOT_MATCH_COMMODITY_CODENAME);
-			}
-//			if(LocalDateTime.now().isAfter(item.getStartSellDateTime())) {
-//				System.out.println("場次已開賣");
-//				continue;
-//			}
-			Sessions session = new Sessions();
-			session.setNum(item.getNum());
-			session.setCommodityCodename(item.getCommodity_codename());
-			session.setShowDateTime(item.getShowDateTime());
-			session.setStartSellDateTime(item.getStartSellDateTime());
-			session.setEndSellDateTime(item.getEndSellDateTime());
-			updateData.add(session);
+				Sessions session = new Sessions();
+				session.setNum(item.getNum());
+				session.setCommodityCodename(item.getCommodity_codename());
+				session.setShowDateTime(item.getShowDateTime());
+				session.setStartSellDateTime(item.getStartSellDateTime());
+				session.setEndSellDateTime(item.getEndSellDateTime());
+				updateData.add(session);
 		}
 		if(updateData.size() <=0) {
 			return new RtnCodeRes(RtnCode.PARAM_ERROR);

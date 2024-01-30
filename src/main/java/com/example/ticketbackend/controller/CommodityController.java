@@ -70,8 +70,11 @@ public class CommodityController {
 		}
 		RtnCodeRes commodityDataCheck = commodityService.commodityDataCheck(req.getCodeName(), req.getName(), req.getIntroduction(), req.isEntity(), req.getStartDate(), req.getEndDate(), req.getPlace(), req.getOrganizer());
 		RtnCodeRes sessionsAndSeatDataCheck = sessionsService.updateSessionAndSeatDataCheck(req.getCodeName(),req.getSessionData());
-		if(commodityDataCheck.getRtncode().getCode() !=200 || sessionsAndSeatDataCheck.getRtncode().getCode() !=200) {
-			return new RtnCodeRes(RtnCode.PARAM_ERROR);
+		if(commodityDataCheck.getRtncode().getCode() !=200) {
+			return commodityDataCheck;
+		}
+		if(sessionsAndSeatDataCheck.getRtncode().getCode() !=200) {
+			return sessionsAndSeatDataCheck;
 		}
 		RtnCodeRes udpateCommodity = commodityService.updateCommodity(req.getCodeName(), req.getName(), req.getIntroduction(), req.isEntity(), req.getStartDate(),req.getEndDate(),req.getPlace(), req.getKeyvisual_img(), req.getIntroduce_img1(), req.getIntroduce_img2(), req.getOrganizer());
 		if(udpateCommodity.getRtncode().getCode() !=200) {

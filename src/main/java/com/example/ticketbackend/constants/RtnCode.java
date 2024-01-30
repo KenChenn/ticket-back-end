@@ -50,6 +50,7 @@ public enum RtnCode {
 	NOT_SUBSCRIBED_NOW(400,"Not Subscribed Now"), //本來就沒訂閱該項目
 	CANCEL_SUBSCRIBE_ERROR(400,"Cancel Subscribe Error"), //取消訂閱失敗
 	SEND_SUBSCRIBE_MESSAGE_ERROR(400,"Send Subscribe Message Error"), //發送訂閱失敗
+	SESSIONS_DATA_NOT_FOUND(400,"Sessions Data Not Found"),//找不到場次資料
 	;
 
 

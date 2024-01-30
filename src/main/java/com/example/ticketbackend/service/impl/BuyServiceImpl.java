@@ -97,8 +97,8 @@ public class BuyServiceImpl implements BuyService {
 			System.out.println("Àx¦s¥¢±Ñ");
 			return new RtnCodeRes(RtnCode.ORDER_ERROR);
 		}
-		LocalDateTime deadLine = LocalDateTime.now().plusDays(3);
-		deadLine = LocalDateTime.of(deadLine.toLocalDate(), LocalTime.of(23, 59,59));
+		LocalDateTime deadLine = LocalDateTime.now().plusMinutes(10);
+//		deadLine = LocalDateTime.of(deadLine.toLocalDate(), LocalTime.of(23, 59,59));
 		Buy newOrder = new Buy(uuid, sessionsNum, buyAccount, LocalDateTime.now(), totalPrice, deadLine);
 		try {
 			buyDao.save(newOrder);
