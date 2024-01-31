@@ -21,7 +21,7 @@ public interface TrackingDao extends JpaRepository<Tracking, Integer>{
 	@Query("select new com.example.ticketbackend.vo.GetTrackingList(T.id,T.tracker,T.commodityCodename,C.name,C.startDate,C.endDate,C.place,C.keyvisualImg,C.organizer) "
 			+ " from Tracking as T "
 			+ " inner join Commodity as C on T.commodityCodename = C.codename "
-			+ " where (T.tracker = :tracker) "
+			+ " where (T.tracker = :tracker) and ((DATE_FORMAT(NOW(), '%Y-%m-%d'))<=C.endDate)"
 			+ " order by C.startDate")
 	public List<GetTrackingList> getTrackingList(@Param("tracker")String tracker);
 }
