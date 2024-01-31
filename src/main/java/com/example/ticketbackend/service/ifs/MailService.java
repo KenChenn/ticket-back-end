@@ -16,4 +16,6 @@ public interface MailService {
 	public void ticketSend(String receivers, String username,String orderNum, List<ByteArrayResource>  ticketList);
 
 	public void subscribeMail(String[] mailArray,String message);
+	
+	public void cancelOrderMail(String receivers,String username,String buyNum);
 }

@@ -15,8 +15,11 @@ import org.springframework.util.StringUtils;
 import com.example.ticketbackend.constants.RtnCode;
 import com.example.ticketbackend.entity.Seat;
 import com.example.ticketbackend.entity.Sessions;
+import com.example.ticketbackend.entity.User;
 import com.example.ticketbackend.repository.SeatDao;
 import com.example.ticketbackend.repository.SessionsDao;
+import com.example.ticketbackend.repository.UserDao;
+import com.example.ticketbackend.service.ifs.MailService;
 import com.example.ticketbackend.service.ifs.SeatService;
 import com.example.ticketbackend.vo.GetRemainingTicketsRes;
 import com.example.ticketbackend.vo.GetRemainingTicketsVo;
@@ -35,6 +38,12 @@ public class SeatServiceImpl implements SeatService {
 
 	@Autowired
 	private SessionsDao sessionsDao;
+	
+	@Autowired
+	private UserDao userDao;
+	
+	@Autowired
+	private MailService mailService;
 
 	@Override
 	public RtnCodeRes insertSeat(String commodityCodename, LocalDateTime showDateTime, List<SeatReq> data) {
@@ -132,6 +141,10 @@ public class SeatServiceImpl implements SeatService {
 		} catch (Exception e) {
 			return new RtnCodeRes(RtnCode.CANCEL_ERROR);
 		}
+		User user = userDao.findByAccountAndAdminFalse(account);
+		String email =  user.getEmail();
+		String username = user.getUsername();
+		mailService.cancelOrderMail(email, username, buyNum);
 		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 
