@@ -56,9 +56,9 @@ public class MailServiceImpl implements MailService{
 //		String mailName = "票亮視界<" + mailAddress + ">";
 		email.setFrom(mailName);
 		email.setTo(receivers);
-		email.setSubject("訂單標號:" + buyNum + "，已取消訂單");
+		email.setSubject("訂單編號:" + buyNum + "，已取消訂單");
 		email.setText("親愛的" + username + "會員，您好:\n"
-				+ "已為您取消，訂單標號:" + buyNum + "之訂單\n"
+				+ "已為您取消，訂單編號:" + buyNum + "之訂單\n"
 				+ "如您已完成付款，請到網站填寫相關退款申請書\n"
 				+ "期待您再次使用票亮視界");
 		mailSender.send(email);

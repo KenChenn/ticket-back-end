@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 
 import com.example.ticketbackend.constants.RtnCode;
 import com.example.ticketbackend.entity.User;
+import com.example.ticketbackend.repository.ForumDao;
 import com.example.ticketbackend.repository.UserDao;
 import com.example.ticketbackend.service.ifs.MailService;
 import com.example.ticketbackend.service.ifs.UserService;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private MailService mailService;
+	
+	@Autowired
+	private ForumDao forumDao;
 
 	// 使用者登入
 	@Override
@@ -100,6 +104,7 @@ public class UserServiceImpl implements UserService {
 		if (user == null) {
 			return new RtnCodeRes(RtnCode.ACCOUNT_NOT_FOUND);
 		}
+		String oldName = user.getUsername();
 		if (!username.equals(user.getUsername()) && userDao.existsByUsername(username)) {
 			return new RtnCodeRes(RtnCode.USERNAME_ALREADY_IN_USE);
 		}
@@ -111,6 +116,7 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			return new RtnCodeRes(RtnCode.USER_DATA_UPDATE_ERROR);
 		}
+		forumDao.updateCommenter(oldName, username);
 		return new RtnCodeRes(RtnCode.SUCCESSFUL);
 	}
 

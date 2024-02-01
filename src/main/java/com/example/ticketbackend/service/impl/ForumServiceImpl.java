@@ -10,7 +10,9 @@ import org.springframework.util.StringUtils;
 
 import com.example.ticketbackend.constants.RtnCode;
 import com.example.ticketbackend.entity.Forum;
+import com.example.ticketbackend.entity.User;
 import com.example.ticketbackend.repository.ForumDao;
+import com.example.ticketbackend.repository.UserDao;
 import com.example.ticketbackend.service.ifs.ForumService;
 import com.example.ticketbackend.vo.GetComments;
 import com.example.ticketbackend.vo.RtnCodeRes;
@@ -20,14 +22,20 @@ public class ForumServiceImpl implements ForumService {
 
 	@Autowired
 	ForumDao forumDao;
-
+	@Autowired
+	UserDao userDao;
+	
 	@Override
 	public RtnCodeRes comment(String commenter, String commodityCodename, String comments) {
 		if (!StringUtils.hasText(commenter) || !StringUtils.hasText(commodityCodename)
 				|| !StringUtils.hasText(comments)) {
 			return new RtnCodeRes(RtnCode.PARAM_ERROR);
 		}
-		Forum newComment = new Forum(commodityCodename, commenter, comments, LocalDateTime.now());
+		User u = userDao.findByAccountAndAdminFalse(commenter);
+		if(u == null) {
+			return new RtnCodeRes(RtnCode.ACCOUNT_NOT_FOUND);
+		}
+		Forum newComment = new Forum(commodityCodename, u.getUsername(), comments, LocalDateTime.now());
 		try {
 			forumDao.save(newComment);
 		} catch (Exception e) {
